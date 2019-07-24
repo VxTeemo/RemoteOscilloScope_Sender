@@ -21,11 +21,7 @@ module Drive_ADC
 
     ,output reg out_wrFIFOreq
 
-);	
-
-//reg out_CLK_reg;
-
-//assign out_CLK = out_CLK_reg;
+);
 
 always @(negedge in_rst or posedge in_clk)
 begin
@@ -33,25 +29,13 @@ begin
     if(in_rst == 0)
     begin
         out_ADC_data <= 10'b0;
-        //out_CLK_reg <=  0;
-        out_wrFIFOreq <= 0;
         out_OE_n <= 1;	
     end
     
     else
-    
-    
+
 	begin 
-    
-
-        out_OE_n <= 0;	
-
-        if(in_wrFIFOfull == 0)
-            out_wrFIFOreq <= 1;
-        else
-            out_wrFIFOreq <= 0;
-
-        //out_CLK_reg <= !in_clk;	
+        out_OE_n <= 0;
     
 		//芯片是这样的
 		out_ADC_data[9] <= in_ADC_data[0];

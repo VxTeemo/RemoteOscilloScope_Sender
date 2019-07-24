@@ -49,7 +49,7 @@ Drive_Clock u_Drive_Clock
 wire out_clk_100M; 
 wire out_clk_ADC;
 assign ADC_CLK = out_clk_ADC;
- Drive_PLL u_Drive_PLL_0
+ Drive_PLL u_Drive_PLL
  (
     .inclk0(clk_50M),
     .c0(out_clk_100M),
@@ -71,6 +71,7 @@ App_DataControl u_App_DataControl
 ( 
     .in_rst(rst),     
     .in_clk(out_clk_100M),     
+    .in_clk_ad(out_clk_ADC),
     .in_ADDATA(out_ADC_data),  
  
     .in_uart_rxd(in_uart_rxd),

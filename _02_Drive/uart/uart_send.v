@@ -95,7 +95,7 @@ always @(posedge sys_clk or negedge sys_rst_n) begin
     if (!sys_rst_n) begin                             
         clk_cnt <= 16'd0;                                  
         tx_cnt  <= 4'd0;
-    end                                                      
+    end
     else if (tx_flag) begin                 //处于发送过程
         if (clk_cnt < BPS_CNT - 1) begin
             clk_cnt <= clk_cnt + 1'b1;
