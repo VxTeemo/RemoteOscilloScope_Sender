@@ -31,7 +31,8 @@ module uart_send(
     
     input         uart_en,                  //发送使能信号
     input  [7:0]  uart_din,                 //待发送数据
-    output  reg   uart_txd                  //UART发送端口
+    output  reg   uart_txd,                 //UART发送端口
+    output     done_flag              //UART发送结束脉冲
     );
     
 //parameter define
@@ -68,25 +69,48 @@ always @(posedge sys_clk or negedge sys_rst_n) begin
     end
 end
 
+//wire       done_flag;
+reg        done_flag_d0; 
+reg        done_flag_d1; 
+reg        uart_tx_done;
+//捕获uart_en上升沿，得到一个时钟周期的脉冲信号
+assign done_flag = (~done_flag_d1) & done_flag_d0;
+//对发送使能信号uart_en延迟两个时钟周期
+always @(posedge sys_clk or negedge sys_rst_n) begin         
+    if (!sys_rst_n) begin
+        done_flag_d0 <= 1'b0;                                  
+        done_flag_d1 <= 1'b0;
+    end                                                      
+    else begin                                               
+        done_flag_d0 <= uart_tx_done;                               
+        done_flag_d1 <= done_flag_d0;                            
+    end
+end
+
+
 //当脉冲信号en_flag到达时,寄存待发送的数据，并进入发送过程          
 always @(posedge sys_clk or negedge sys_rst_n) begin         
     if (!sys_rst_n) begin                                  
         tx_flag <= 1'b0;
         tx_data <= 8'd0;
+        uart_tx_done <= 1'b0;
     end 
     else if (en_flag) begin                 //检测到发送使能上升沿                      
             tx_flag <= 1'b1;                //进入发送过程，标志位tx_flag拉高
             tx_data <= uart_din;            //寄存待发送的数据
+            uart_tx_done <= 1'b0;
         end
         else 
         if ((tx_cnt == 4'd9)&&(clk_cnt == BPS_CNT/2))
         begin                               //计数到停止位中间时，停止发送过程
             tx_flag <= 1'b0;                //发送过程结束，标志位tx_flag拉低
             tx_data <= 8'd0;
+            uart_tx_done <= 1'b1;
         end
         else begin
             tx_flag <= tx_flag;
             tx_data <= tx_data;
+            uart_tx_done <= uart_tx_done;
         end 
 end
 

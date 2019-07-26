@@ -44,7 +44,9 @@ module fifo_addata (
 	wrreq,
 	q,
 	rdempty,
-	wrfull);
+	rdusedw,
+	wrfull,
+	wrusedw);
 
 	input	[7:0]  data;
 	input	  rdclk;
@@ -53,14 +55,20 @@ module fifo_addata (
 	input	  wrreq;
 	output	[7:0]  q;
 	output	  rdempty;
+	output	[8:0]  rdusedw;
 	output	  wrfull;
+	output	[8:0]  wrusedw;
 
 	wire [7:0] sub_wire0;
 	wire  sub_wire1;
-	wire  sub_wire2;
+	wire [8:0] sub_wire2;
+	wire  sub_wire3;
+	wire [8:0] sub_wire4;
 	wire [7:0] q = sub_wire0[7:0];
 	wire  rdempty = sub_wire1;
-	wire  wrfull = sub_wire2;
+	wire [8:0] rdusedw = sub_wire2[8:0];
+	wire  wrfull = sub_wire3;
+	wire [8:0] wrusedw = sub_wire4[8:0];
 
 	dcfifo	dcfifo_component (
 				.data (data),
@@ -70,13 +78,13 @@ module fifo_addata (
 				.wrreq (wrreq),
 				.q (sub_wire0),
 				.rdempty (sub_wire1),
-				.wrfull (sub_wire2),
+				.rdusedw (sub_wire2),
+				.wrfull (sub_wire3),
+				.wrusedw (sub_wire4),
 				.aclr (),
 				.eccstatus (),
 				.rdfull (),
-				.rdusedw (),
-				.wrempty (),
-				.wrusedw ());
+				.wrempty ());
 	defparam
 		dcfifo_component.intended_device_family = "Cyclone IV E",
 		dcfifo_component.lpm_numwords = 512,
@@ -112,7 +120,7 @@ endmodule
 // Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
 // Retrieval info: PRIVATE: Optimize NUMERIC "0"
 // Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
-// Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "1"
+// Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "0"
 // Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
 // Retrieval info: PRIVATE: UsedW NUMERIC "1"
 // Retrieval info: PRIVATE: Width NUMERIC "8"
@@ -122,12 +130,12 @@ endmodule
 // Retrieval info: PRIVATE: output_width NUMERIC "8"
 // Retrieval info: PRIVATE: rsEmpty NUMERIC "1"
 // Retrieval info: PRIVATE: rsFull NUMERIC "0"
-// Retrieval info: PRIVATE: rsUsedW NUMERIC "0"
+// Retrieval info: PRIVATE: rsUsedW NUMERIC "1"
 // Retrieval info: PRIVATE: sc_aclr NUMERIC "0"
 // Retrieval info: PRIVATE: sc_sclr NUMERIC "0"
 // Retrieval info: PRIVATE: wsEmpty NUMERIC "0"
 // Retrieval info: PRIVATE: wsFull NUMERIC "1"
-// Retrieval info: PRIVATE: wsUsedW NUMERIC "0"
+// Retrieval info: PRIVATE: wsUsedW NUMERIC "1"
 // Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone IV E"
 // Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "512"
@@ -145,9 +153,11 @@ endmodule
 // Retrieval info: USED_PORT: rdclk 0 0 0 0 INPUT NODEFVAL "rdclk"
 // Retrieval info: USED_PORT: rdempty 0 0 0 0 OUTPUT NODEFVAL "rdempty"
 // Retrieval info: USED_PORT: rdreq 0 0 0 0 INPUT NODEFVAL "rdreq"
+// Retrieval info: USED_PORT: rdusedw 0 0 9 0 OUTPUT NODEFVAL "rdusedw[8..0]"
 // Retrieval info: USED_PORT: wrclk 0 0 0 0 INPUT NODEFVAL "wrclk"
 // Retrieval info: USED_PORT: wrfull 0 0 0 0 OUTPUT NODEFVAL "wrfull"
 // Retrieval info: USED_PORT: wrreq 0 0 0 0 INPUT NODEFVAL "wrreq"
+// Retrieval info: USED_PORT: wrusedw 0 0 9 0 OUTPUT NODEFVAL "wrusedw[8..0]"
 // Retrieval info: CONNECT: @data 0 0 8 0 data 0 0 8 0
 // Retrieval info: CONNECT: @rdclk 0 0 0 0 rdclk 0 0 0 0
 // Retrieval info: CONNECT: @rdreq 0 0 0 0 rdreq 0 0 0 0
@@ -155,12 +165,13 @@ endmodule
 // Retrieval info: CONNECT: @wrreq 0 0 0 0 wrreq 0 0 0 0
 // Retrieval info: CONNECT: q 0 0 8 0 @q 0 0 8 0
 // Retrieval info: CONNECT: rdempty 0 0 0 0 @rdempty 0 0 0 0
+// Retrieval info: CONNECT: rdusedw 0 0 9 0 @rdusedw 0 0 9 0
 // Retrieval info: CONNECT: wrfull 0 0 0 0 @wrfull 0 0 0 0
+// Retrieval info: CONNECT: wrusedw 0 0 9 0 @wrusedw 0 0 9 0
 // Retrieval info: GEN_FILE: TYPE_NORMAL fifo_addata.v TRUE
 // Retrieval info: GEN_FILE: TYPE_NORMAL fifo_addata.inc FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL fifo_addata.cmp FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL fifo_addata.bsf FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL fifo_addata_inst.v TRUE
+// Retrieval info: GEN_FILE: TYPE_NORMAL fifo_addata_inst.v FALSE
 // Retrieval info: GEN_FILE: TYPE_NORMAL fifo_addata_bb.v FALSE
-// Retrieval info: GEN_FILE: TYPE_NORMAL fifo_addata_syn.v TRUE
 // Retrieval info: LIB_FILE: altera_mf

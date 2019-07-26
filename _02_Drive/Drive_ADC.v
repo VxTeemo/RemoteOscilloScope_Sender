@@ -13,13 +13,9 @@ module Drive_ADC
     input in_rst
     ,input in_clk  
     ,input [9:0]in_ADC_data  
-    ,input in_wrFIFOfull
 
     ,output reg out_OE_n    
-
     ,output reg [9:0]out_ADC_data  
-
-    ,output reg out_wrFIFOreq
 
 );
 
@@ -48,8 +44,6 @@ begin
 		out_ADC_data[2] <= in_ADC_data[7];
 		out_ADC_data[1] <= in_ADC_data[8];
 		out_ADC_data[0] <= in_ADC_data[9];
-        //FPGA中倒序数据，STM32直接接收
-//		out_ADC_data <= in_ADC_data; 
 	end
 	
 end

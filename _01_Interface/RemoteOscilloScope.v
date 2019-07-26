@@ -14,18 +14,21 @@ module RemoteOscilloScope
 	/* Drive_Clock -------------------*/
 	input       clk_50M, 
 	input       rst,
-    
+    input       in_key,
 	/* Drive_Led ---------------------*/
 	output[3:0] led_bus,
 
     /* Drive_ADC ---------------------*/
 	input [9:0] in_ADC_data,
 	output      out_OE_n,
-	output      ADC_CLK,
+	output      out_clk_ADC,
     
     /* Drive_DataControl -------------*/    
     input       in_uart_rxd,
-    output      out_uart_txd
+    output      out_uart_txd,
+    
+    /* Trigger signal from Comparator*/
+    input       in_trigger
 );   
 
 /* Drive_Clock ----------------------*/
@@ -45,17 +48,16 @@ Drive_Clock u_Drive_Clock
     .out_clk_s(out_clk_s) 
 );
 
+wire out_clk_200M;
+wire out_clk_10M;
+Drive_PLL u_Drive_PLL
+(
+   .inclk0(clk_50M),
+   .c0(out_clk_200M),
+   .c1(out_clk_10M)
+);
 
-wire out_clk_100M; 
-wire out_clk_ADC;
-assign ADC_CLK = out_clk_ADC;
- Drive_PLL u_Drive_PLL
- (
-    .inclk0(clk_50M),
-    .c0(out_clk_100M),
-    .c1(out_clk_ADC)
- );
- 
+wire [9:0]out_ADC_data;
 Drive_ADC u_Drive_ADC
 (
     .in_rst(rst),
@@ -66,17 +68,21 @@ Drive_ADC u_Drive_ADC
     .out_ADC_data(out_ADC_data)
 );
 
-
+wire out_adc_clk;
+assign out_clk_ADC = out_adc_clk;
 App_DataControl u_App_DataControl
 ( 
     .in_rst(rst),     
-    .in_clk(out_clk_100M),     
-    .in_clk_ad(out_clk_ADC),
-    .in_ADDATA(out_ADC_data),  
+    .in_clk(out_clk_200M),     
+    .in_clk_200M(out_clk_200M),
+    .in_addata(out_ADC_data),
+    .in_trigger(in_trigger),
+    .in_key_n(in_key),
  
     .in_uart_rxd(in_uart_rxd),
-    .out_uart_txd(out_uart_txd)
+    .out_uart_txd(out_uart_txd),
     
+    .out_adc_clk(out_adc_clk)
 );	
 
 
