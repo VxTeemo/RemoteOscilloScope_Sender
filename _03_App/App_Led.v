@@ -15,7 +15,6 @@ module App_Led
 	,input in_clk_ms     
 	
 	,output[3:0] out_led
-	 
 );	 
 
 /* 寄存器配置 -------------------------*/
@@ -28,19 +27,13 @@ integer i;
 /* 运行线程 ---------------------------*/
 always @(posedge in_clk_ms or negedge in_rst)
 begin   
-	if(in_rst == 0) 
-	begin
+	if(in_rst == 0) begin
 		led <= 4'b0111; 
 	end
-	
-	else 
-	
-	begin
+	else begin
         cnt <= (cnt + 1'd1)%(16'd4*Flash_Delay); 
-        for( i=0; i<4; i=i+1)
-        begin
-            if(cnt == i*Flash_Delay) 
-            begin 
+        for( i=0; i<4; i=i+1) begin
+            if(cnt == i*Flash_Delay) begin 
                 led <= 4'b1111 &~ (4'b1000 >> i);
             end
         end
