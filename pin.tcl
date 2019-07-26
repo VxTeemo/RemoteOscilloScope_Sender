@@ -14,7 +14,7 @@
 
 # Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Standard Edition
 # File: C:\FPGA_project\__01_CycloneIV_Code\_07_ RemoteOscilloScope\pin.tcl
-# Generated on: Wed Jul 24 16:00:50 2019
+# Generated on: Sat Jul 27 03:22:18 2019
 
 package require ::quartus::project
 
@@ -32,9 +32,11 @@ set_location_assignment PIN_50 -to in_ADC_data[6]
 set_location_assignment PIN_49 -to in_ADC_data[7]
 set_location_assignment PIN_46 -to in_ADC_data[8]
 set_location_assignment PIN_44 -to in_ADC_data[9]
-set_location_assignment PIN_42 -to ADC_CLK
 set_location_assignment PIN_23 -to clk_50M
 set_location_assignment PIN_100 -to rst
 set_location_assignment PIN_43 -to out_OE_n
 set_location_assignment PIN_113 -to out_uart_txd
 set_location_assignment PIN_111 -to in_uart_rxd
+set_location_assignment PIN_42 -to out_clk_ADC
+set_location_assignment PIN_103 -to in_trigger
+set_location_assignment PIN_88 -to in_key
