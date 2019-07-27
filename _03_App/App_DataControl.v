@@ -23,15 +23,16 @@ module App_DataControl
 	output      out_uart_txd,
     
     output      out_adc_clk,
-    output  reg    measure_flag
+    output      measure_hold_sig_filp
     
 );	 
 
+assign measure_hold_sig_filp = ~measure_hold_sig;
 /* 寄存器配置 -------------------------*/
 
 
 /* 连接输出 ---------------------------*/
-assign out_adc_clk = measure_flag;
+assign out_adc_clk = measure_adc_clk;
 
 
 
@@ -84,14 +85,9 @@ u_uart_send(
 
 reg in_trigger_d;
 reg trigger_flag;
-reg measure_done;       //测量结束信号
-reg measure_done_d;
 
 always @(posedge in_clk)
     in_trigger_d <= in_trigger;
-
-always @(posedge in_clk)
-    measure_done_d <= measure_done;
 
 //生成触发信号，开始计时
 always @(posedge in_clk)
@@ -100,7 +96,7 @@ begin
         if(in_trigger == 1 && in_trigger_d == 0 && trigger_enable) begin //检测到触发信号上升沿
             trigger_flag <= 1;
         end
-        else if(measure_done == 1 && measure_done_d == 0) begin //检测到测量完成信号上升沿
+        else if(measure_flag == 1 && measure_flag_d == 0) begin //检测到开始测量信号上升沿
             trigger_flag <= 0;
         end
         else
@@ -160,7 +156,7 @@ begin
 end
 
 reg [9:0] measure_index;
-//reg measure_flag;
+reg measure_flag;
 //测量信号，达到计数值n\deta t后产生信号
 always @(posedge in_clk)
 begin
@@ -176,22 +172,126 @@ end
 reg measure_flag_d;
 always @(posedge in_clk)
     measure_flag_d <= measure_flag;
-
+    
 always @(posedge in_clk)
 begin
     if(measure_start) begin
         if(measure_flag == 1 && measure_flag_d == 0) begin //检测到触发信号上升沿
             measure_index <= measure_index + 1'b1;
-            measure_done <= 1;
         end
-        else
-            measure_done <= 0;
     end
     else begin
         measure_index <= 1;
-        measure_done <= 0;
     end
 end
+
+//TODO:测量信号转采样保持 measure_done
+reg measure_done;       //测量结束信号
+reg measure_done_d;
+reg [9:0] measure_cnt;
+reg measure_once_start;
+reg measure_hold_sig;
+always @(posedge in_clk)
+    measure_done_d <= measure_done;
+
+//采样保持信号
+always @(posedge in_clk)
+begin
+    if(measure_start) begin
+        if(measure_flag == 1 && measure_flag_d == 0) begin //检测到测量信号上升沿
+            measure_hold_sig <= 1;
+        end
+        else if(measure_done == 1 && measure_done_d == 0) begin //检测到测量结束上升沿
+            measure_hold_sig <= 0;
+        end
+        else 
+            measure_hold_sig <= measure_hold_sig;
+    end
+    else begin
+        measure_hold_sig <= 0;
+    end
+end
+
+always @(posedge in_clk)
+begin
+    if(measure_hold_sig)
+        measure_cnt <= measure_cnt + 1'b1;
+    else
+        measure_cnt <= 0;
+end
+
+always @(posedge in_clk)
+begin
+    case (measure_cnt)
+        10'd100: begin
+            measure_done <= 1;
+        end
+        default: begin
+            measure_done <= 0;
+        end
+    endcase
+end
+
+
+
+
+/////////////////////////////////
+
+reg measure_adc_sig;
+reg [9:0]measure_adc_cnt;
+reg measure_adc_done;
+reg measure_adc_done_d;
+always @(posedge in_clk)
+    measure_adc_done_d <= measure_adc_done;
+
+always @(posedge in_clk)
+begin
+    if(measure_start) begin
+        if(measure_flag == 1 && measure_flag_d == 0) begin //检测到测量信号上升沿
+            measure_adc_sig <= 1;
+        end
+        else if(measure_adc_done == 1 && measure_adc_done_d == 0) begin //检测到测量结束上升沿
+            measure_adc_sig <= 0;
+        end
+        else 
+            measure_adc_sig <= measure_adc_sig;
+    end
+    else begin
+        measure_adc_sig <= 0;
+    end
+end
+
+always @(posedge in_clk)
+begin
+    if(measure_adc_sig)
+        measure_adc_cnt <= measure_adc_cnt + 1'b1;
+    else
+        measure_adc_cnt <= 0;
+end
+
+reg measure_adc_clk;
+always @(posedge in_clk)
+begin
+    case (measure_adc_cnt)
+        10'd1: begin
+            measure_adc_clk <= 0;
+        end
+        10'd100: begin
+            measure_adc_clk <= 1;
+            measure_adc_done <= 1;
+        end
+        default: begin
+            measure_adc_clk <= measure_adc_clk;
+            measure_adc_done <= 0;
+        end
+    endcase
+end
+
+
+
+///////////////////////////////////
+
+
 
 reg in_key_d;
 always @(posedge in_clk)
