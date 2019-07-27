@@ -97,7 +97,7 @@ always @(posedge in_clk)
 always @(posedge in_clk)
 begin
     if(measure_start) begin
-        if(in_trigger == 1 && in_trigger_d == 0) begin //检测到触发信号上升沿
+        if(in_trigger == 1 && in_trigger_d == 0 && trigger_enable) begin //检测到触发信号上升沿
             trigger_flag <= 1;
         end
         else if(measure_done == 1 && measure_done_d == 0) begin //检测到测量完成信号上升沿
@@ -111,6 +111,35 @@ begin
     end
 end
 
+reg trigger_flag_d;
+reg trigger_enable;
+reg [9:0] trigger_delay_cnt;
+always @(posedge in_clk)
+    trigger_flag_d <= trigger_flag;
+//触发使能信号，每次触发后，延迟1M时间后才能进行下一次触发
+always @(posedge in_clk)
+begin
+    if(trigger_delay_cnt > 10'd200) begin
+        trigger_enable <= 1;
+    end
+    else if(trigger_flag == 1 && trigger_flag_d == 0) begin
+        trigger_enable <= 0;
+    end
+    else begin
+        trigger_enable <= trigger_enable;
+    end
+end
+//触发使能信号计数器，触发使能后开始计数
+always @(posedge in_clk)
+begin
+    if(trigger_enable == 0) begin
+        trigger_delay_cnt <= trigger_delay_cnt + 1'b1;
+    end
+    else
+        trigger_delay_cnt <= 0;
+end
+
+//触发后延迟测量时间计数器，每次延迟的时间增加1
 reg [9:0] measure_delay_cnt;
 always @(posedge in_clk_200M or negedge in_rst)
 begin
@@ -118,7 +147,7 @@ begin
         measure_delay_cnt <= 0;
     end
     else begin
-        if(measure_start) begin        
+        if(measure_start) begin
             if(trigger_flag)
                 measure_delay_cnt <= measure_delay_cnt + 1'b1;
             else
@@ -131,9 +160,8 @@ begin
 end
 
 reg [9:0] measure_index;
-//wire measure_flag;
-//assign measure_flag = (measure_delay_cnt == measure_index);
 //reg measure_flag;
+//测量信号，达到计数值n\deta t后产生信号
 always @(posedge in_clk)
 begin
     if(measure_delay_cnt == measure_index) begin
@@ -165,12 +193,9 @@ begin
     end
 end
 
-wire key_press_flag;
 reg in_key_d;
-
 always @(posedge in_clk)
     in_key_d <= in_key_n;
-assign key_press_flag = (~in_key_n) & in_key_d;
 
 reg measure_start;
 always @(posedge in_clk or negedge in_rst)
