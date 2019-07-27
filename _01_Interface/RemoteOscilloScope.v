@@ -28,7 +28,8 @@ module RemoteOscilloScope
     output      out_uart_txd,
     
     /* Trigger signal from Comparator*/
-    input       in_trigger
+    input       in_trigger,
+    output      out_measure_hold_sig
 );   
 
 /* Drive_Clock ----------------------*/
@@ -82,7 +83,8 @@ App_DataControl u_App_DataControl
     .in_uart_rxd(in_uart_rxd),
     .out_uart_txd(out_uart_txd),
     
-    .out_adc_clk(out_adc_clk)
+    .out_adc_clk(out_adc_clk),
+    .out_measure_hold_sig(out_measure_hold_sig)
 );	
 
 

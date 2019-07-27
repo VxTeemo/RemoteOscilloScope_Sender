@@ -23,11 +23,12 @@ module App_DataControl
 	output      out_uart_txd,
     
     output      out_adc_clk,
-    output      measure_hold_sig_filp
+    output      out_measure_hold_sig
     
 );	 
 
-assign measure_hold_sig_filp = ~measure_hold_sig;
+assign out_measure_hold_sig = measure_hold_sig;
+//assign out_measure_hold_sig = ~out_measure_hold_sig;
 /* 寄存器配置 -------------------------*/
 
 
@@ -199,22 +200,22 @@ always @(posedge in_clk)
 begin
     if(measure_start) begin
         if(measure_flag == 1 && measure_flag_d == 0) begin //检测到测量信号上升沿
-            measure_hold_sig <= 1;
+            measure_hold_sig <= 0;
         end
         else if(measure_done == 1 && measure_done_d == 0) begin //检测到测量结束上升沿
-            measure_hold_sig <= 0;
+            measure_hold_sig <= 1;
         end
         else 
             measure_hold_sig <= measure_hold_sig;
     end
     else begin
-        measure_hold_sig <= 0;
+        measure_hold_sig <= 1;
     end
 end
 
 always @(posedge in_clk)
 begin
-    if(measure_hold_sig)
+    if(measure_hold_sig == 0)
         measure_cnt <= measure_cnt + 1'b1;
     else
         measure_cnt <= 0;
@@ -276,7 +277,7 @@ begin
         10'd1: begin
             measure_adc_clk <= 0;
         end
-        10'd100: begin
+        10'd50: begin
             measure_adc_clk <= 1;
             measure_adc_done <= 1;
         end
@@ -306,7 +307,7 @@ begin
     else if(in_key_d == 1 && in_key_n == 0) begin
         measure_start <= 1;
     end
-    else if(measure_index == 10'd200) begin
+    else if(measure_index == 10'd400) begin
         measure_start <= 0;
     end
     else
