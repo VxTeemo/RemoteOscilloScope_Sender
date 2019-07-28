@@ -35,7 +35,9 @@ module RemoteOscilloScope
     output      out_measure_hold_sig,
     
     /* Signal Freq measure ----------*/
-    output      out_freq_uart_tx
+    output      out_freq_uart_tx,
+    
+    output      out_clk_100k
 );
 
 /* Drive_Clock ----------------------*/
@@ -61,7 +63,8 @@ Drive_PLL u_Drive_PLL
 (
    .inclk0(clk_50M),
    .c0(out_clk_200M),
-   .c1(out_clk_10M)
+   .c1(out_clk_10M),
+   .c2(out_clk_100k)
 );
 
 wire [9:0]out_ADC_data;
