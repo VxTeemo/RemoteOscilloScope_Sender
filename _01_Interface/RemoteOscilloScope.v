@@ -31,7 +31,7 @@ module RemoteOscilloScope
     output      out_uart_txd,
     
     /* Trigger signal from Comparator*/
-    input       in_trigger,
+    input       in_trigger_n,
     output      out_measure_hold_sig
 );   
 
@@ -81,7 +81,7 @@ App_DataControl u_App_DataControl
     .in_clk_200M(out_clk_200M),
     .in_clk_10M(out_clk_10M),
     .in_addata(out_ADC_data),
-    .in_trigger(in_trigger),
+    .in_trigger_n(in_trigger_n),
     .in_key_n(in_key),
     .in_request_n(in_request_n),
     .in_sample_rate_select(in_sample_rate_select),

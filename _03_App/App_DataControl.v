@@ -15,7 +15,7 @@ module App_DataControl
     input       in_clk,
     input       in_clk_200M,
     input       in_clk_10M,
-    input       in_trigger,
+    input       in_trigger_n,
     input[9:0]  in_addata,
     input       in_key_n,
     input       in_request_n,
@@ -31,7 +31,7 @@ module App_DataControl
 );
 
 //parameter define
-parameter  DATA_NUM = 10'd206;
+parameter  DATA_NUM = 10'd405;
 
 parameter  SYS_CLK = 200_000_000;
 parameter  TRIGGER_DELAY_TIME   = 1_000_000;    //1M的时间 1us
@@ -51,9 +51,11 @@ assign out_adc_clk = measure_adc_clk;
    
 
 /* 寄存器配置 -------------------------*/
+
 reg in_trigger_d;
 reg trigger_flag;
-
+wire in_trigger;
+assign in_trigger = ~in_trigger_n;
 /* 运行线程 ---------------------------*/
 always @(posedge in_clk)
     in_trigger_d <= in_trigger;
@@ -280,7 +282,7 @@ begin
     else if(request_sig_d == 1 && request_sig == 0) begin
         measure_start <= 1;
     end
-    else if(measure_index == DATA_NUM) begin
+    else if(measure_index == DATA_NUM) begin //TODO:
         measure_start <= 0;
     end
     else
@@ -296,6 +298,8 @@ wire fifo_wrreq;
 wire [7:0]fifo_data2uart;
 wire rdempty_sig;
 wire wrfull_sig;
+wire wrusedw_sig;
+wire rdusedw_sig;
 
 assign fifo_rdclk = fifo_rdclk_sig | uart_send_sig;
 assign fifo_rdreq = uart_send_start | fifo_rdclk_mess_start;
@@ -310,7 +314,9 @@ fifo_addata u_fifo_addata (
     .wrreq ( fifo_wrreq ),
     .q ( fifo_data2uart ),
     .rdempty ( rdempty_sig ),
-    .wrfull ( wrfull_sig )
+    .rdusedw ( rdusedw_sig ),
+    .wrfull ( wrfull_sig ),
+    .wrusedw ( wrusedw_sig )
     );
 
 reg measure_start_d;
@@ -400,7 +406,7 @@ begin
     if(fifo_rdclk_mess_start == 0 && fifo_rdclk_mess_start_d == 1) begin //检测FIFO错误数据发送结束
         uart_send_start <= 1;
     end
-    else if(uart_send_cnt == DATA_NUM) begin
+    else if(uart_send_cnt == DATA_NUM) begin //TODO:
         uart_send_start <= 0;
     end
     else
