@@ -297,8 +297,8 @@ wire [7:0]fifo_data2uart;
 wire rdempty_sig;
 wire wrfull_sig;
 
-assign fifo_rdclk = fifo_rdclk_sig & uart_send_sig;
-assign fifo_rdreq = uart_send_start;
+assign fifo_rdclk = fifo_rdclk_sig | uart_send_sig;
+assign fifo_rdreq = uart_send_start | fifo_rdclk_mess_start;
 assign fifo_wrclk = measure_adc_clk;
 assign fifo_wrreq = measure_start;
 
@@ -313,30 +313,6 @@ fifo_addata u_fifo_addata (
     .wrfull ( wrfull_sig )
     );
 
-//parameter define
-parameter  CLK_FREQ = 200000000;       //定义系统时钟频率
-parameter  UART_BPS = 115200;         //定义串口波特率
-
-//wire define   
-wire        uart_en_w;                 //UART发送使能
-//wire [7:0] uart_data_w;               //UART发送数据
-wire        uart_send_once_done;
-
-assign      uart_en_w = uart_send_sig;
-
-uart_send #(                          //串口发送模块
-    .CLK_FREQ       (CLK_FREQ),       //设置系统时钟频率
-    .UART_BPS       (UART_BPS))       //设置串口发送波特率
-u_uart_send(                 
-    .sys_clk        (in_clk),
-    .sys_rst_n      (in_rst),
-    
-    .uart_en        (uart_en_w),
-    .uart_din       (fifo_data2uart),
-    .uart_txd       (out_uart_txd),
-    .done_flag      (uart_send_once_done)
-);
-
 reg measure_start_d;
 always @(posedge in_clk)
     measure_start_d <= measure_start;
@@ -344,22 +320,18 @@ always @(posedge in_clk)
 reg         fifo_rdclk_sig;
 reg         fifo_rdclk_mess_start;
 reg [9:0]   fifo_rdclk_mess_cnt;
-reg         fifo_rdclk_mess_done;
 
 always @(posedge in_clk)
 begin
 
     if(measure_start == 0 && measure_start_d == 1) begin //检测测量信号下降沿，即测量结束信号
         fifo_rdclk_mess_start <= 1;
-        fifo_rdclk_mess_done <= 0;
     end
     else if(fifo_rdclk_mess_cnt == 110) begin
         fifo_rdclk_mess_start <= 0;
-        fifo_rdclk_mess_done <= 1;
     end
     else begin
         fifo_rdclk_mess_start <= fifo_rdclk_mess_start;
-        fifo_rdclk_mess_done <= 0;
     end
 
 end
@@ -391,6 +363,33 @@ begin
         fifo_rdclk_sig <= 0;
 end
 
+reg fifo_rdclk_mess_start_d;
+always @(posedge in_clk)
+    fifo_rdclk_mess_start_d <= fifo_rdclk_mess_start;
+
+//parameter define
+parameter  CLK_FREQ = 200000000;       //定义系统时钟频率
+parameter  UART_BPS = 115200;         //定义串口波特率
+
+//wire define   
+wire        uart_en_w;                 //UART发送使能
+//wire [7:0] uart_data_w;               //UART发送数据
+wire        uart_send_once_done;
+
+assign      uart_en_w = uart_send_sig;
+
+uart_send #(                          //串口发送模块
+    .CLK_FREQ       (CLK_FREQ),       //设置系统时钟频率
+    .UART_BPS       (UART_BPS))       //设置串口发送波特率
+u_uart_send(                 
+    .sys_clk        (in_clk),
+    .sys_rst_n      (in_rst),
+    
+    .uart_en        (uart_en_w),
+    .uart_din       (fifo_data2uart),
+    .uart_txd       (out_uart_txd),
+    .done_flag      (uart_send_once_done)
+);
 
 
 reg         uart_send_start;
@@ -398,7 +397,7 @@ reg [9:0]   uart_send_cnt;
 
 always @(posedge in_clk)
 begin
-    if(fifo_rdclk_mess_done == 1) begin //检测测量信号下降沿，即测量结束信号
+    if(fifo_rdclk_mess_start == 0 && fifo_rdclk_mess_start_d == 1) begin //检测FIFO错误数据发送结束
         uart_send_start <= 1;
     end
     else if(uart_send_cnt == DATA_NUM) begin

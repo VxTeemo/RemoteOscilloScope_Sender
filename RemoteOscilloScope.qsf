@@ -93,244 +93,242 @@ set_location_assignment PIN_88 -to in_key
 set_global_assignment -name ENABLE_SIGNALTAP ON
 set_global_assignment -name USE_SIGNALTAP_FILE output_files/stp1.stp
 set_global_assignment -name SIGNALTAP_FILE output_files/stp1.stp
-set_global_assignment -name SLD_NODE_CREATOR_ID 110 -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_ENTITY_NAME sld_signaltap -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_BLOCK_TYPE=AUTO" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_INFO=805334528" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_POWER_UP_TRIGGER=0" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=4096" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ATTRIBUTE_MEM_MODE=OFF" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_FLOW_USE_GENERATED=0" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_BITS=11" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_BUFFER_FULL_STOP=1" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_CURRENT_RESOURCE_WIDTH=1" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INCREMENTAL_ROUTING=1" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[0] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[2] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[4] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[11] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[13] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[17] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[20] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[21] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[22] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[24] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[26] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[27] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[28] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[29] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[30] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL=1" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=4096" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_IN_ENABLED=0" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_PIPELINE=0" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_PIPELINE=0" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_COUNTER_PIPELINE=0" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ADVANCED_TRIGGER_ENTITY=basic,1," -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL_PIPELINE=1" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ENABLE_ADVANCED_TRIGGER=0" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[1] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[5] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[7] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[10] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[12] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[14] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[18] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[31] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[3] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[9] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[16] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[23] -to auto_signaltap_0|gnd -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[6] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[8] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_location_assignment PIN_98 -to out_measure_hold_sig
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[0]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[1]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[2]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[3] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[3]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[4] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[4]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[5] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[5]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[6] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[6]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[7] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[7]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[8] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[0]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[9] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[1]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[10] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[2]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[11] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[3]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[12] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[4]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[13] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[5]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[14] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[6]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[15] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[7]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[16] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrclk" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[17] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[0]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[18] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[1]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[19] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[2]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[20] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[3]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[21] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[4]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[22] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[5]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[23] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[6]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[24] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[7]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[25] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[8]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[26] -to "App_DataControl:u_App_DataControl|in_key_n" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[27] -to "App_DataControl:u_App_DataControl|in_trigger" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[28] -to "App_DataControl:u_App_DataControl|measure_adc_clk" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[0]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[1]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[2] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[2]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[3]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[4] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[4]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[5] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[5]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[6] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[6]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[7] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[7]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[8] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[0]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[9] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[1]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[10] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[2]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[11] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[3]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[12] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[4]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[13] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[5]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[14] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[6]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[15] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[7]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[16] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrclk" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[17] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[0]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[18] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[1]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[19] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[2]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[20] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[3]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[21] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[4]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[22] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[5]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[23] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[6]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[24] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[7]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[25] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[8]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[26] -to "App_DataControl:u_App_DataControl|in_key_n" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[27] -to "App_DataControl:u_App_DataControl|in_trigger" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[28] -to "App_DataControl:u_App_DataControl|measure_adc_clk" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[29] -to "App_DataControl:u_App_DataControl|measure_adc_done" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[30] -to "App_DataControl:u_App_DataControl|measure_adc_sig" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[31] -to "App_DataControl:u_App_DataControl|measure_done" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[32] -to "App_DataControl:u_App_DataControl|measure_flag" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[33] -to "App_DataControl:u_App_DataControl|measure_hold_sig" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[34] -to "App_DataControl:u_App_DataControl|measure_index[0]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[35] -to "App_DataControl:u_App_DataControl|measure_index[1]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[36] -to "App_DataControl:u_App_DataControl|measure_index[2]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[37] -to "App_DataControl:u_App_DataControl|measure_index[3]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[38] -to "App_DataControl:u_App_DataControl|measure_index[4]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[39] -to "App_DataControl:u_App_DataControl|measure_index[5]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[40] -to "App_DataControl:u_App_DataControl|measure_index[6]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[41] -to "App_DataControl:u_App_DataControl|measure_index[7]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[42] -to "App_DataControl:u_App_DataControl|measure_index[8]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[43] -to "App_DataControl:u_App_DataControl|measure_index[9]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[44] -to "App_DataControl:u_App_DataControl|measure_start" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[45] -to "App_DataControl:u_App_DataControl|trigger_enable" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[46] -to "App_DataControl:u_App_DataControl|trigger_flag" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[29] -to "App_DataControl:u_App_DataControl|measure_adc_done" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[30] -to "App_DataControl:u_App_DataControl|measure_adc_sig" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[31] -to "App_DataControl:u_App_DataControl|measure_done" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[32] -to "App_DataControl:u_App_DataControl|measure_flag" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[33] -to "App_DataControl:u_App_DataControl|measure_hold_sig" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[34] -to "App_DataControl:u_App_DataControl|measure_index[0]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[35] -to "App_DataControl:u_App_DataControl|measure_index[1]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[36] -to "App_DataControl:u_App_DataControl|measure_index[2]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[37] -to "App_DataControl:u_App_DataControl|measure_index[3]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[38] -to "App_DataControl:u_App_DataControl|measure_index[4]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[39] -to "App_DataControl:u_App_DataControl|measure_index[5]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[40] -to "App_DataControl:u_App_DataControl|measure_index[6]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[41] -to "App_DataControl:u_App_DataControl|measure_index[7]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[42] -to "App_DataControl:u_App_DataControl|measure_index[8]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[43] -to "App_DataControl:u_App_DataControl|measure_index[9]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[44] -to "App_DataControl:u_App_DataControl|measure_start" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[45] -to "App_DataControl:u_App_DataControl|trigger_enable" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[46] -to "App_DataControl:u_App_DataControl|trigger_flag" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[47] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[0]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[48] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[10]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[49] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[11]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[50] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[12]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[51] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[13]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[52] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[14]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[53] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[15]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[54] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[1]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[55] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[2]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[56] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[3]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[57] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[4]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[58] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[5]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[59] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[6]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[60] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[7]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[61] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[8]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[62] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[9]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[63] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|done_flag" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[64] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|en_flag" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[65] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[0]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[66] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[1]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[67] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[2]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[68] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[3]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[69] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[4]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[70] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[5]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[71] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[6]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[72] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[7]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[73] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_en" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[74] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_txd" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[75] -to "App_DataControl:u_App_DataControl|uart_send_cnt[0]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[76] -to "App_DataControl:u_App_DataControl|uart_send_cnt[1]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[77] -to "App_DataControl:u_App_DataControl|uart_send_cnt[2]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[78] -to "App_DataControl:u_App_DataControl|uart_send_cnt[3]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[79] -to "App_DataControl:u_App_DataControl|uart_send_cnt[4]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[80] -to "App_DataControl:u_App_DataControl|uart_send_cnt[5]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[81] -to "App_DataControl:u_App_DataControl|uart_send_cnt[6]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[82] -to "App_DataControl:u_App_DataControl|uart_send_cnt[7]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[83] -to "App_DataControl:u_App_DataControl|uart_send_cnt[8]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[84] -to "App_DataControl:u_App_DataControl|uart_send_cnt[9]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[85] -to "App_DataControl:u_App_DataControl|uart_send_sig" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[86] -to "App_DataControl:u_App_DataControl|uart_send_start" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[47] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[0]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[48] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[10]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[49] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[11]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[50] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[12]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[51] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[13]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[52] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[14]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[53] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[15]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[54] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[1]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[55] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[2]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[56] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[3]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[57] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[4]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[58] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[5]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[59] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[6]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[60] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[7]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[61] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[8]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[62] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|clk_cnt[9]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[63] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|done_flag" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[64] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|en_flag" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[65] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[0]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[66] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[1]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[67] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[2]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[68] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[3]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[69] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[4]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[70] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[5]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[71] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[6]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[72] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[7]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[73] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_en" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[74] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_txd" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[75] -to "App_DataControl:u_App_DataControl|uart_send_cnt[0]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[76] -to "App_DataControl:u_App_DataControl|uart_send_cnt[1]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[77] -to "App_DataControl:u_App_DataControl|uart_send_cnt[2]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[78] -to "App_DataControl:u_App_DataControl|uart_send_cnt[3]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[79] -to "App_DataControl:u_App_DataControl|uart_send_cnt[4]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[80] -to "App_DataControl:u_App_DataControl|uart_send_cnt[5]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[81] -to "App_DataControl:u_App_DataControl|uart_send_cnt[6]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[82] -to "App_DataControl:u_App_DataControl|uart_send_cnt[7]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[83] -to "App_DataControl:u_App_DataControl|uart_send_cnt[8]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[84] -to "App_DataControl:u_App_DataControl|uart_send_cnt[9]" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[85] -to "App_DataControl:u_App_DataControl|uart_send_sig" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[86] -to "App_DataControl:u_App_DataControl|uart_send_start" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=87" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=87" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=87" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" -section_id auto_signaltap_0
-set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=287" -section_id auto_signaltap_0
-set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to "App_DataControl:u_App_DataControl|in_clk_200M" -section_id auto_signaltap_0
-set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[15] -to auto_signaltap_0|vcc -section_id auto_signaltap_0
 set_location_assignment PIN_99 -to in_request_n
 set_location_assignment PIN_66 -to in_sample_rate_select[0]
 set_location_assignment PIN_80 -to in_sample_rate_select[1]
 set_global_assignment -name QIP_FILE _04_IP_core/MUX/delta_t_clk_mux.qip
+set_global_assignment -name SLD_NODE_CREATOR_ID 110 -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_ENTITY_NAME sld_signaltap -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_clk -to "App_DataControl:u_App_DataControl|in_clk_200M" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_BLOCK_TYPE=AUTO" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_NODE_INFO=805334531" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_POWER_UP_TRIGGER=0" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_INVERSION_MASK_LENGTH=0" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SEGMENT_SIZE=4096" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ATTRIBUTE_MEM_MODE=OFF" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_FLOW_USE_GENERATED=0" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STATE_BITS=11" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_BUFFER_FULL_STOP=1" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_CURRENT_RESOURCE_WIDTH=1" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INCREMENTAL_ROUTING=1" -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[1] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[2] -to auto_signaltap_3|gnd -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[4] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[7] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[9] -to auto_signaltap_3|gnd -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[10] -to auto_signaltap_3|gnd -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[11] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[12] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[17] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[21] -to auto_signaltap_3|gnd -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[23] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[24] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[25] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[26] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[28] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[29] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL=1" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_SAMPLE_DEPTH=4096" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_IN_ENABLED=0" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_PIPELINE=0" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_RAM_PIPELINE=0" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_COUNTER_PIPELINE=0" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ADVANCED_TRIGGER_ENTITY=basic,1," -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_LEVEL_PIPELINE=1" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_ENABLE_ADVANCED_TRIGGER=0" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[0] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[1] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[2] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[3] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[4] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[5] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[6] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[7] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[8] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[9] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[10] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[11] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[12] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[13] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[14] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[15] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[16] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdclk" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[17] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdreq" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[18] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[19] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[20] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[21] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[22] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[23] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[24] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[25] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[26] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[8]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[27] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrclk" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[28] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrreq" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[29] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[30] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[31] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[32] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[33] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[34] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[35] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[36] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[37] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[8]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[38] -to "App_DataControl:u_App_DataControl|fifo_rdclk" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[39] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[40] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[41] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[42] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[43] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[44] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[45] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[46] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[47] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[8]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[48] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[9]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[0] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[1] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[2] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[3] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[4] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[5] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[6] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[7] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|data[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[8] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[9] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[10] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[11] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[12] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[13] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[14] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[15] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|q[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[16] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdclk" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[17] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdreq" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[18] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[19] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[20] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[21] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[22] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[23] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[24] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[25] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[26] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|rdusedw[8]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[27] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrclk" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[28] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrreq" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[29] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[30] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[31] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[32] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[33] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[34] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[35] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[36] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[37] -to "App_DataControl:u_App_DataControl|fifo_addata:u_fifo_addata|wrusedw[8]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[38] -to "App_DataControl:u_App_DataControl|fifo_rdclk" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[39] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[40] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[41] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[42] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[43] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[44] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[45] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[46] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[47] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[8]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[48] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_cnt[9]" -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[0] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[3] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[6] -to auto_signaltap_3|gnd -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[13] -to auto_signaltap_3|gnd -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[16] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[18] -to auto_signaltap_3|gnd -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[20] -to auto_signaltap_3|gnd -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[22] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[30] -to auto_signaltap_3|gnd -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[31] -to auto_signaltap_3|gnd -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[15] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[27] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[5] -to auto_signaltap_3|gnd -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[8] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[19] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[49] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_start" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[50] -to "App_DataControl:u_App_DataControl|fifo_rdclk_sig" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[51] -to "App_DataControl:u_App_DataControl|in_request_n" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[52] -to "App_DataControl:u_App_DataControl|in_trigger" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[53] -to "App_DataControl:u_App_DataControl|measure_index[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[54] -to "App_DataControl:u_App_DataControl|measure_index[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[55] -to "App_DataControl:u_App_DataControl|measure_index[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[56] -to "App_DataControl:u_App_DataControl|measure_index[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[57] -to "App_DataControl:u_App_DataControl|measure_index[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[58] -to "App_DataControl:u_App_DataControl|measure_index[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[59] -to "App_DataControl:u_App_DataControl|measure_index[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[60] -to "App_DataControl:u_App_DataControl|measure_index[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[61] -to "App_DataControl:u_App_DataControl|measure_index[8]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[62] -to "App_DataControl:u_App_DataControl|measure_index[9]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[63] -to "App_DataControl:u_App_DataControl|measure_start" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[64] -to "App_DataControl:u_App_DataControl|request_sig" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[65] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[66] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[67] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[68] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[69] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[70] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[71] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[72] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[73] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_en" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[74] -to "App_DataControl:u_App_DataControl|uart_send_cnt[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[75] -to "App_DataControl:u_App_DataControl|uart_send_cnt[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[76] -to "App_DataControl:u_App_DataControl|uart_send_cnt[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[77] -to "App_DataControl:u_App_DataControl|uart_send_cnt[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[78] -to "App_DataControl:u_App_DataControl|uart_send_cnt[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[79] -to "App_DataControl:u_App_DataControl|uart_send_cnt[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[80] -to "App_DataControl:u_App_DataControl|uart_send_cnt[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[81] -to "App_DataControl:u_App_DataControl|uart_send_cnt[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[82] -to "App_DataControl:u_App_DataControl|uart_send_cnt[8]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[83] -to "App_DataControl:u_App_DataControl|uart_send_cnt[9]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[84] -to "App_DataControl:u_App_DataControl|uart_send_start" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_trigger_in[85] -to in_key -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[49] -to "App_DataControl:u_App_DataControl|fifo_rdclk_mess_start" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[50] -to "App_DataControl:u_App_DataControl|fifo_rdclk_sig" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[51] -to "App_DataControl:u_App_DataControl|in_request_n" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[52] -to "App_DataControl:u_App_DataControl|in_trigger" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[53] -to "App_DataControl:u_App_DataControl|measure_index[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[54] -to "App_DataControl:u_App_DataControl|measure_index[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[55] -to "App_DataControl:u_App_DataControl|measure_index[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[56] -to "App_DataControl:u_App_DataControl|measure_index[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[57] -to "App_DataControl:u_App_DataControl|measure_index[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[58] -to "App_DataControl:u_App_DataControl|measure_index[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[59] -to "App_DataControl:u_App_DataControl|measure_index[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[60] -to "App_DataControl:u_App_DataControl|measure_index[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[61] -to "App_DataControl:u_App_DataControl|measure_index[8]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[62] -to "App_DataControl:u_App_DataControl|measure_index[9]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[63] -to "App_DataControl:u_App_DataControl|measure_start" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[64] -to "App_DataControl:u_App_DataControl|request_sig" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[65] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[66] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[67] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[68] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[69] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[70] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[71] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[72] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_din[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[73] -to "App_DataControl:u_App_DataControl|uart_send:u_uart_send|uart_en" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[74] -to "App_DataControl:u_App_DataControl|uart_send_cnt[0]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[75] -to "App_DataControl:u_App_DataControl|uart_send_cnt[1]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[76] -to "App_DataControl:u_App_DataControl|uart_send_cnt[2]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[77] -to "App_DataControl:u_App_DataControl|uart_send_cnt[3]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[78] -to "App_DataControl:u_App_DataControl|uart_send_cnt[4]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[79] -to "App_DataControl:u_App_DataControl|uart_send_cnt[5]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[80] -to "App_DataControl:u_App_DataControl|uart_send_cnt[6]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[81] -to "App_DataControl:u_App_DataControl|uart_send_cnt[7]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[82] -to "App_DataControl:u_App_DataControl|uart_send_cnt[8]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[83] -to "App_DataControl:u_App_DataControl|uart_send_cnt[9]" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[84] -to "App_DataControl:u_App_DataControl|uart_send_start" -section_id auto_signaltap_3
+set_instance_assignment -name CONNECT_TO_SLD_NODE_ENTITY_PORT acq_data_in[85] -to in_key -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_DATA_BITS=86" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_TRIGGER_BITS=86" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_STORAGE_QUALIFIER_BITS=86" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK=00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" -section_id auto_signaltap_3
+set_global_assignment -name SLD_NODE_PARAMETER_ASSIGNMENT "SLD_INVERSION_MASK_LENGTH=284" -section_id auto_signaltap_3
+set_instance_assignment -name POST_FIT_CONNECT_TO_SLD_NODE_ENTITY_PORT crc[14] -to auto_signaltap_3|vcc -section_id auto_signaltap_3
 set_global_assignment -name SLD_FILE db/stp1_auto_stripped.stp
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
