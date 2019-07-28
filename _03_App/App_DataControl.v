@@ -108,7 +108,15 @@ end
 //in_sample_rate_select[0] 1:10M等效采样 0:200M等效采样 in_sample_rate_select[1]为0时有效
 
 wire delta_t_clk;
-assign delta_t_clk = in_sample_rate_select[0] ? in_clk_10M : in_clk_200M ;
+//assign delta_t_clk = in_sample_rate_select[0] ? in_clk_10M : in_clk_200M ;
+
+delta_t_clk_mux delta_t_clk_mux_inst (
+    .data0 ( in_clk_10M ),
+    .data1 ( in_clk_200M ),
+    .sel ( in_sample_rate_select[0] ),
+    .result ( delta_t_clk )
+    );
+
 //触发后延迟测量时间计数器，即计算\delta t的计数器，每次延迟的时间增加1
 reg [9:0] measure_delay_cnt;
 
@@ -289,7 +297,7 @@ wire [7:0]fifo_data2uart;
 wire rdempty_sig;
 wire wrfull_sig;
 
-assign fifo_rdclk = uart_send_sig;
+assign fifo_rdclk = fifo_rdclk_sig & uart_send_sig;
 assign fifo_rdreq = uart_send_start;
 assign fifo_wrclk = measure_adc_clk;
 assign fifo_wrreq = measure_start;
@@ -332,13 +340,76 @@ u_uart_send(
 reg measure_start_d;
 always @(posedge in_clk)
     measure_start_d <= measure_start;
-    
+
+
+//////////////////////////////
+reg         fifo_rdclk_sig;
+reg         fifo_rdclk_mess_start;
+reg [9:0]   fifo_rdclk_mess_cnt;
+reg         fifo_rdclk_mess_done;
+
+always @(posedge in_clk)
+begin
+
+    if(measure_start == 0 && measure_start_d == 1) begin //检测测量信号下降沿，即测量结束信号
+        fifo_rdclk_mess_start <= 1;
+        fifo_rdclk_mess_done <= 0;
+    end
+    else if(fifo_rdclk_mess_cnt == 110) begin
+        fifo_rdclk_mess_start <= 0;
+        fifo_rdclk_mess_done <= 1;
+    end
+    else begin
+        fifo_rdclk_mess_start <= fifo_rdclk_mess_start;
+        fifo_rdclk_mess_done <= 0;
+    end
+
+end
+
+always @(posedge in_clk)
+begin
+    if(fifo_rdclk_mess_start)
+        fifo_rdclk_mess_cnt <= fifo_rdclk_mess_cnt + 1'b1;
+    else
+        fifo_rdclk_mess_cnt <= 0;
+end
+
+always @(posedge in_clk)
+begin
+    if(fifo_rdclk_mess_start) begin
+        case(fifo_rdclk_mess_cnt)
+            10,30,50,70,90: begin
+                fifo_rdclk_sig <= 1;
+            end
+            20,40,60,80,100 :begin
+                fifo_rdclk_sig <= 0;
+            end
+            default: begin
+                fifo_rdclk_sig <= fifo_rdclk_sig;
+            end
+        endcase
+    end
+    else
+        fifo_rdclk_sig <= 0;
+end
+
+
+
+
+
+
+
+////////////////////////////////
+
+
+
+
 reg         uart_send_start;
 reg [9:0]   uart_send_cnt;
 
 always @(posedge in_clk)
 begin
-    if(measure_start == 0 && measure_start_d == 1) begin //检测测量信号下降沿，即测量结束信号
+    if(fifo_rdclk_mess_done == 1) begin //检测测量信号下降沿，即测量结束信号
         uart_send_start <= 1;
     end
     else if(uart_send_cnt == DATA_NUM) begin
