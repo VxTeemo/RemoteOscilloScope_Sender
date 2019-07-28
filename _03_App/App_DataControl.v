@@ -11,28 +11,39 @@
 /* 设置接口 ---------------------------*/
 module App_DataControl
 ( 
-	input       in_rst,     
-	input       in_clk,   
-	input       in_clk_200M,
+    input       in_rst,
+    input       in_clk,
+    input       in_clk_200M,
+    input       in_clk_10M,
     input       in_trigger,
-	input[9:0]  in_addata, 
+    input[9:0]  in_addata,
     input       in_key_n,
     input       in_request_n,
+    input[1:0]  in_sample_rate_select,
     
     //uart接口    
     input       in_uart_rxd,
-	output      out_uart_txd,
+    output      out_uart_txd,
     
     output      out_adc_clk,
     output      out_measure_hold_sig
     
-);	 
+);
 
 //parameter define
 parameter  DATA_NUM = 10'd206;
-parameter  ADC_CLK_DELAY = 10'd50;
-parameter  MEASURE_DONE_CNT = 10'd100;
-parameter  TRIGGER_DELAY_CNT = 10'd200;
+
+parameter  SYS_CLK = 200_000_000;
+parameter  TRIGGER_DELAY_TIME   = 1_000_000;    //1M的时间 1us
+parameter  TRIGGER_DELAY_CNT    =   10'd200;
+parameter  MEASURE_DONE_TIME    = 2_000_000;    //0.5us
+parameter  MEASURE_DONE_CNT     =   10'd100;
+parameter  ADC_CLK_DELAY_TIME   = 4_000_000;    //0.25us
+parameter  ADC_CLK_DELAY        =    10'd50;
+
+//localparam TRIGGER_DELAY_CNT    = SYS_CLK / TRIGGER_DELAY_TIME;
+//localparam MEASURE_DONE_CNT     = SYS_CLK / MEASURE_DONE_TIME;
+//localparam ADC_CLK_DELAY        = SYS_CLK / ADC_CLK_DELAY_TIME;
 
 /* 连接输出 ---------------------------*/
 assign out_measure_hold_sig = measure_hold_sig;
@@ -93,9 +104,15 @@ begin
         trigger_delay_cnt <= 0;
 end
 
-//触发后延迟测量时间计数器，每次延迟的时间增加1
+//in_sample_rate_select[1] 1:1K实时采样 0:等效采样
+//in_sample_rate_select[0] 1:10M等效采样 0:200M等效采样 in_sample_rate_select[1]为0时有效
+
+wire delta_t_clk;
+assign delta_t_clk = in_sample_rate_select[0] ? in_clk_10M : in_clk_200M ;
+//触发后延迟测量时间计数器，即计算\delta t的计数器，每次延迟的时间增加1
 reg [9:0] measure_delay_cnt;
-always @(posedge in_clk_200M or negedge in_rst)
+
+always @(posedge delta_t_clk or negedge in_rst)
 begin
     if(!in_rst) begin
         measure_delay_cnt <= 0;
@@ -115,7 +132,7 @@ end
 
 reg [9:0] measure_index;
 reg measure_flag;
-//测量信号，达到计数值n\deta t后产生信号
+//测量信号，达到计数值n\delta t后产生信号
 always @(posedge in_clk)
 begin
     if(measure_delay_cnt == measure_index) begin
@@ -277,16 +294,16 @@ assign fifo_rdreq = uart_send_start;
 assign fifo_wrclk = measure_adc_clk;
 assign fifo_wrreq = measure_start;
 
-fifo_addata	u_fifo_addata (
-	.data ( in_addata[9:2] ),
-	.rdclk ( fifo_rdclk ),
-	.rdreq ( fifo_rdreq ),
-	.wrclk ( fifo_wrclk ),
-	.wrreq ( fifo_wrreq ),
-	.q ( fifo_data2uart ),
-	.rdempty ( rdempty_sig ),
-	.wrfull ( wrfull_sig )
-	);
+fifo_addata u_fifo_addata (
+    .data ( in_addata[9:2] ),
+    .rdclk ( fifo_rdclk ),
+    .rdreq ( fifo_rdreq ),
+    .wrclk ( fifo_wrclk ),
+    .wrreq ( fifo_wrreq ),
+    .q ( fifo_data2uart ),
+    .rdempty ( rdempty_sig ),
+    .wrfull ( wrfull_sig )
+    );
 
 //parameter define
 parameter  CLK_FREQ = 200000000;       //定义系统时钟频率

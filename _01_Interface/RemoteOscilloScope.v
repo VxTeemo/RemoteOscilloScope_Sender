@@ -11,19 +11,20 @@
 /* 顶层接口模块 ----------------------*/
 module RemoteOscilloScope
 ( 
-	/* Drive_Clock -------------------*/
-	input       clk_50M, 
-	input       rst,
+    /* Drive_Clock -------------------*/
+    input       clk_50M, 
+    input       rst,
     input       in_key,
     input       in_request_n,
+    input[1:0]  in_sample_rate_select,
     
-	/* Drive_Led ---------------------*/
-	output[3:0] led_bus,
+    /* Drive_Led ---------------------*/
+    output[3:0] led_bus,
 
     /* Drive_ADC ---------------------*/
-	input [9:0] in_ADC_data,
-	output      out_OE_n,
-	output      out_clk_ADC,
+    input [9:0] in_ADC_data,
+    output      out_OE_n,
+    output      out_clk_ADC,
     
     /* Drive_DataControl -------------*/    
     input       in_uart_rxd,
@@ -78,24 +79,26 @@ App_DataControl u_App_DataControl
     .in_rst(rst),     
     .in_clk(out_clk_200M),     
     .in_clk_200M(out_clk_200M),
+    .in_clk_10M(out_clk_10M),
     .in_addata(out_ADC_data),
     .in_trigger(in_trigger),
     .in_key_n(in_key),
     .in_request_n(in_request_n),
+    .in_sample_rate_select(in_sample_rate_select),
  
     .in_uart_rxd(in_uart_rxd),
     .out_uart_txd(out_uart_txd),
     
     .out_adc_clk(out_adc_clk),
     .out_measure_hold_sig(out_measure_hold_sig)
-);	
+);  
 
 
  App_Led u_App_Led
 (    
-	.in_rst(rst), 
-	.in_clk_ms(out_clk_ms), 
-	.out_led(led_bus)  
+    .in_rst(rst), 
+    .in_clk_ms(out_clk_ms), 
+    .out_led(led_bus)  
 );
 
 
