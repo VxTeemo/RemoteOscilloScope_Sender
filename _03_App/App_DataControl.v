@@ -17,6 +17,7 @@ module App_DataControl
     input       in_trigger,
 	input[9:0]  in_addata, 
     input       in_key_n,
+    input       in_request_n,
     
     //uart接口    
     input       in_uart_rxd,
@@ -238,9 +239,12 @@ begin
 end
 
 
-reg in_key_d;
+wire request_sig;
+assign request_sig = in_key_n & in_request_n;
+
+reg request_sig_d;
 always @(posedge in_clk)
-    in_key_d <= in_key_n;
+    request_sig_d <= request_sig;
 
 reg measure_start;
 always @(posedge in_clk or negedge in_rst)
@@ -248,7 +252,7 @@ begin
     if(!in_rst) begin
         measure_start <= 0;
     end
-    else if(in_key_d == 1 && in_key_n == 0) begin
+    else if(request_sig_d == 1 && request_sig == 0) begin
         measure_start <= 1;
     end
     else if(measure_index == DATA_NUM) begin

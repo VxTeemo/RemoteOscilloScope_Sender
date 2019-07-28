@@ -15,6 +15,8 @@ module RemoteOscilloScope
 	input       clk_50M, 
 	input       rst,
     input       in_key,
+    input       in_request_n,
+    
 	/* Drive_Led ---------------------*/
 	output[3:0] led_bus,
 
@@ -79,6 +81,7 @@ App_DataControl u_App_DataControl
     .in_addata(out_ADC_data),
     .in_trigger(in_trigger),
     .in_key_n(in_key),
+    .in_request_n(in_request_n),
  
     .in_uart_rxd(in_uart_rxd),
     .out_uart_txd(out_uart_txd),
