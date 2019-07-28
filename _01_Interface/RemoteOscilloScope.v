@@ -62,7 +62,7 @@ wire [9:0]out_ADC_data;
 Drive_ADC u_Drive_ADC
 (
     .in_rst(rst),
-    .in_clk(out_clk_ADC),
+    .in_clk(out_adc_clk),
     .in_ADC_data(in_ADC_data),
 
     .out_OE_n(out_OE_n),
