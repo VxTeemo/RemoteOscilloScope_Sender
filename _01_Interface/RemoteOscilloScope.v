@@ -32,14 +32,17 @@ module RemoteOscilloScope
     
     /* Trigger signal from Comparator*/
     input       in_trigger_n,
-    output      out_measure_hold_sig
-);   
+    output      out_measure_hold_sig,
+    
+    /* Signal Freq measure ----------*/
+    output      out_freq_uart_tx
+);
 
 /* Drive_Clock ----------------------*/
-wire out_clk_us;  
-wire out_clk_ms; 
-wire out_clk_20ms;  
-wire out_clk_s;  
+wire out_clk_us;
+wire out_clk_ms;
+wire out_clk_20ms;
+wire out_clk_s;
 
 Drive_Clock u_Drive_Clock
 (  
@@ -101,7 +104,25 @@ App_DataControl u_App_DataControl
     .out_led(led_bus)  
 );
 
+wire [31:0]data_fx;
+Drive_Usart_Top Drive_Usart_Top
+(
+    .in_clk_us(out_clk_us),
+    .in_clr(rst),
 
+    .out_set_freq(data_fx),
+    .out_tx(out_freq_uart_tx)
+);
+
+wire in_freq_sig;
+assign in_freq_sig = in_trigger_n;
+Drive_Freq u_Drive_Freq
+(
+    .in_clk_50M(clk_50M),             // 标准时钟信号
+    .in_clr(rst),                     // 复位信号
+    .Sig_in(in_freq_sig),                     // 被测时钟信号
+    .data_fx(data_fx)                    // 被测时钟频率输出
+);
 
 
 endmodule
