@@ -108,7 +108,15 @@ end
 //in_sample_rate_select[0] 1:10M等效采样 0:200M等效采样 in_sample_rate_select[1]为0时有效
 
 wire delta_t_clk;
-assign delta_t_clk = in_sample_rate_select[0] ? in_clk_10M : in_clk_200M ;
+//assign delta_t_clk = in_sample_rate_select[0] ? in_clk_10M : in_clk_200M ;
+
+delta_t_clk_mux delta_t_clk_mux_inst (
+    .data0 ( in_clk_10M ),
+    .data1 ( in_clk_200M ),
+    .sel ( in_sample_rate_select[0] ),
+    .result ( delta_t_clk )
+    );
+
 //触发后延迟测量时间计数器，即计算\delta t的计数器，每次延迟的时间增加1
 reg [9:0] measure_delay_cnt;
 
@@ -332,7 +340,7 @@ u_uart_send(
 reg measure_start_d;
 always @(posedge in_clk)
     measure_start_d <= measure_start;
-    
+
 reg         uart_send_start;
 reg [9:0]   uart_send_cnt;
 
