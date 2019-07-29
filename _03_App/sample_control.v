@@ -4,6 +4,7 @@ module sample_control
     input       in_clk,
     input       in_clk_200M,
     input       in_clk_10M,
+    input       in_clk_1k,
     input       in_trigger_n,
     input       in_request_n,
     input[1:0]  in_sample_rate_select,
@@ -139,12 +140,24 @@ end
 reg measure_flag_d;
 always @(posedge in_clk)
     measure_flag_d <= measure_flag;
+
+reg in_clk_1k_d;
+always @(posedge in_clk)
+    in_clk_1k_d <= in_clk_1k;
+    
     
 always @(posedge in_clk)
 begin
     if(measure_start) begin
-        if(measure_flag == 1 && measure_flag_d == 0) begin //检测到触发信号上升沿
-            measure_index <= measure_index + 1'b1;
+        if(in_sample_rate_select[1]) begin //实时采样
+            if(in_clk_1k == 1 && in_clk_1k_d == 0) begin //1ms一次的上升沿
+                measure_index <= measure_index + 1'b1;
+            end
+        end
+        else begin //等效采样
+            if(measure_flag == 1 && measure_flag_d == 0) begin //检测到触发信号上升沿
+                measure_index <= measure_index + 1'b1;
+            end
         end
     end
     else begin

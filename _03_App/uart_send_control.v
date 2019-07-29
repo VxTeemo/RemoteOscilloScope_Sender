@@ -4,6 +4,7 @@ module uart_send_control
     input       in_clk,
     input[7:0]  in_uart_data,
     input       in_fifo_sig,
+    input       uart_force_send,
     
     //uart接口
     output      out_uart_txd,
@@ -24,7 +25,7 @@ wire        uart_en_w;                 //UART发送使能
 //wire [7:0] uart_data_w;               //UART发送数据
 wire        uart_send_once_done;
 
-assign      uart_en_w = uart_send_sig;
+assign      uart_en_w = uart_send_sig | uart_force_send;
 
 uart_send #(                          //串口发送模块
     .CLK_FREQ       (CLK_FREQ),       //设置系统时钟频率
@@ -52,7 +53,7 @@ begin
     if(in_fifo_sig == 0 && in_fifo_sig_d == 1) begin //检测FIFO错误数据发送结束
         uart_send_start <= 1;
     end
-    else if(uart_send_cnt == DATA_NUM) begin //TODO:
+    else if(uart_send_cnt == DATA_NUM) begin
         uart_send_start <= 0;
     end
     else

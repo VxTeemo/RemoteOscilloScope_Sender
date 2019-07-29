@@ -70,7 +70,7 @@ wire [9:0]out_ADC_data;
 Drive_ADC u_Drive_ADC
 (
     .in_rst(rst),
-    .in_clk(out_adc_clk),
+    .in_clk(out_clk_ADC),
     .in_ADC_data(in_ADC_data),
 
     .out_OE_n(out_OE_n),
@@ -78,13 +78,14 @@ Drive_ADC u_Drive_ADC
 );
 
 wire out_adc_clk;
-assign out_clk_ADC = out_adc_clk;
+assign out_clk_ADC = in_sample_rate_select[1] ? out_clk_100k : out_adc_clk;
 App_DataControl u_App_DataControl
 (
     .in_rst(rst),     
     .in_clk(out_clk_200M),     
     .in_clk_200M(out_clk_200M),
     .in_clk_10M(out_clk_10M),
+    .in_clk_1k(out_clk_ms),
     .in_addata(out_ADC_data),
     .in_trigger_n(in_trigger_n),
     .in_request_n(in_key & in_request_n),

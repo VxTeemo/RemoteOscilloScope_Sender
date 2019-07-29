@@ -2,6 +2,7 @@ module fifo_control
 (
     input       in_rst,
     input       in_clk,
+    input       fifo_enable,
     input       measure_sig,
     input       measure_adc_clk,
     input       in_uart_send_start,
@@ -10,7 +11,7 @@ module fifo_control
     output[7:0] out_fifo_data,
     output      out_fifo_sig
 );
-assign out_fifo_sig = fifo_rdclk_mess_start;
+assign out_fifo_sig = fifo_enable ? fifo_rdclk_mess_start : 1'b0;
 
 //parameter define
 parameter  DATA_NUM = 10'd405;
@@ -27,10 +28,10 @@ wire wrfull_sig;
 wire wrusedw_sig;
 wire rdusedw_sig;
 
-assign fifo_rdclk = fifo_rdclk_sig | in_uart_send_sig;
-assign fifo_rdreq = in_uart_send_start | fifo_rdclk_mess_start;
-assign fifo_wrclk = measure_adc_clk;
-assign fifo_wrreq = measure_sig;
+assign fifo_rdclk = fifo_enable ? (fifo_rdclk_sig | in_uart_send_sig) : 1'b0;
+assign fifo_rdreq = fifo_enable ? (in_uart_send_start | fifo_rdclk_mess_start) : 1'b0;
+assign fifo_wrclk = fifo_enable ? measure_adc_clk : 1'b0;
+assign fifo_wrreq = fifo_enable ? measure_sig : 1'b0;
 
 fifo_addata u_fifo_addata (
     .data ( in_addata ),
@@ -55,7 +56,7 @@ reg [9:0]   fifo_rdclk_mess_cnt;
 
 always @(posedge in_clk)
 begin
-    if(measure_sig == 0 && measure_sig_d == 1) begin //检测测量信号下降沿，即测量结束信号
+    if(measure_sig == 0 && measure_sig_d == 1 && fifo_enable) begin //检测测量信号下降沿，即测量结束信号
         fifo_rdclk_mess_start <= 1;
     end
     else if(fifo_rdclk_mess_cnt == 110) begin
