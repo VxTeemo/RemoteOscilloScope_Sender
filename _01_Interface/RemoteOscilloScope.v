@@ -27,7 +27,6 @@ module RemoteOscilloScope
     output      out_clk_ADC,
     
     /* Drive_DataControl -------------*/    
-    input       in_uart_rxd,
     output      out_uart_txd,
     
     /* Trigger signal from Comparator*/
@@ -81,18 +80,16 @@ Drive_ADC u_Drive_ADC
 wire out_adc_clk;
 assign out_clk_ADC = out_adc_clk;
 App_DataControl u_App_DataControl
-( 
+(
     .in_rst(rst),     
     .in_clk(out_clk_200M),     
     .in_clk_200M(out_clk_200M),
     .in_clk_10M(out_clk_10M),
     .in_addata(out_ADC_data),
     .in_trigger_n(in_trigger_n),
-    .in_key_n(in_key),
-    .in_request_n(in_request_n),
+    .in_request_n(in_key & in_request_n),
     .in_sample_rate_select(in_sample_rate_select),
- 
-    .in_uart_rxd(in_uart_rxd),
+
     .out_uart_txd(out_uart_txd),
     
     .out_adc_clk(out_adc_clk),

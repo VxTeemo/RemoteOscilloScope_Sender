@@ -41,7 +41,7 @@ always @ (posedge Sig_in)//被测信号为上升沿
 reg [31:0]  SigTemp;
 reg [1:0]  flag_cnt;
 always @ (posedge in_clk_50M)
-	flag_cnt <= (flag_cnt+1)%2;
+	flag_cnt <= (flag_cnt+1)% 2'd2;
 	
 	
 	
