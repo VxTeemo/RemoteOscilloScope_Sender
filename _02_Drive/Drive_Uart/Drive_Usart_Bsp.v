@@ -20,7 +20,12 @@ module Drive_Usart_Bsp
 	 ,output reg out_receive_update
 	 ,output reg [7:0]out_receive_byte 
 );
+//parameter define
+parameter  CLK_FREQ = 1000000;       //定义系统时钟频率
+parameter  UART_BPS = 9600;         //定义串口波特率
 
+localparam ONEBIT  = CLK_FREQ/UART_BPS;
+localparam HAFTBIT = CLK_FREQ/UART_BPS/2;
 /* 检测下降沿 -------------------------*/
 reg fall_sign;
 always @(posedge in_clk_us)
@@ -51,18 +56,18 @@ begin
 	begin 
 		receive_us_cnt <= receive_us_cnt + 1; 
 		case(receive_us_cnt)  
-			52:	error <= in_rx;//这是起始位,1就是错误数据
-			156:	out_receive_byte[0] <= in_rx; 
-			260:	out_receive_byte[1] <= in_rx; 
-			364:	out_receive_byte[2] <= in_rx; 
-			468:	out_receive_byte[3] <= in_rx; 
-			500:	begin out_receive_update <= 0;end
-			572:	out_receive_byte[4] <= in_rx; 
-			676:	out_receive_byte[5] <= in_rx; 
-			780:	out_receive_byte[6] <= in_rx; 
-			884:	out_receive_byte[7] <= in_rx; 
-			988:	begin if(!error) if(in_rx) out_receive_update <= 1; end//如果接收成功,产生一个上升沿
-		   1039:	begin receive_us_cnt <= 0; receive_state <= 0; end //完成接收  
+			HAFTBIT:	error <= in_rx;//这是起始位,1就是错误数据
+			ONEBIT+HAFTBIT:	out_receive_byte[0] <= in_rx; 
+			2*ONEBIT+HAFTBIT:	out_receive_byte[1] <= in_rx; 
+			3*ONEBIT+HAFTBIT:	out_receive_byte[2] <= in_rx; 
+			4*ONEBIT+HAFTBIT:	out_receive_byte[3] <= in_rx; 
+			5*ONEBIT:	begin out_receive_update <= 0;end
+			5*ONEBIT+HAFTBIT:	out_receive_byte[4] <= in_rx; 
+			6*ONEBIT+HAFTBIT:	out_receive_byte[5] <= in_rx; 
+			7*ONEBIT+HAFTBIT:	out_receive_byte[6] <= in_rx; 
+			8*ONEBIT+HAFTBIT:	out_receive_byte[7] <= in_rx; 
+			9*ONEBIT+HAFTBIT:	begin if(!error) if(in_rx) out_receive_update <= 1; end//如果接收成功,产生一个上升沿
+            10*ONEBIT:	begin receive_us_cnt <= 0; receive_state <= 0; end //完成接收  
 		endcase
 	end
 	 
@@ -86,16 +91,16 @@ begin
 		send_us_cnt = send_us_cnt + 1; 
         case(send_us_cnt)
             1:		begin out_tx <= 0;end//起始位 
-            105:	out_tx <= in_send_byte[0]; 
-            209:	out_tx <= in_send_byte[1]; 
-            313:	out_tx <= in_send_byte[2]; 
-            417:	out_tx <= in_send_byte[3]; 
-            521:	out_tx <= in_send_byte[4]; 
-            625:	out_tx <= in_send_byte[5]; 
-            729:	out_tx <= in_send_byte[6]; 
-            833:	out_tx <= in_send_byte[7]; 
-            937:	out_tx <= 1;//停止位
-           1000:	begin send_us_cnt = 0; send_state = 0; end //完成发送
+            ONEBIT+1:	out_tx <= in_send_byte[0]; 
+            2*ONEBIT+1:	out_tx <= in_send_byte[1]; 
+            3*ONEBIT+1:	out_tx <= in_send_byte[2]; 
+            4*ONEBIT+1:	out_tx <= in_send_byte[3]; 
+            5*ONEBIT+1:	out_tx <= in_send_byte[4]; 
+            6*ONEBIT+1:	out_tx <= in_send_byte[5]; 
+            7*ONEBIT+1:	out_tx <= in_send_byte[6]; 
+            8*ONEBIT+1:	out_tx <= in_send_byte[7]; 
+            9*ONEBIT+1:	out_tx <= 1;//停止位
+            9*ONEBIT+HAFTBIT+1:	begin send_us_cnt = 0; send_state = 0; end //完成发送
         endcase 
 	end 
 end
