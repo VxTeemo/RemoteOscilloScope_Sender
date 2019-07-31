@@ -53,7 +53,7 @@ sample_control u_sample_control
 wire out_uart_send_sig;
 wire uart_send_start;
 wire [7:0]fifo_data2uart;
-wire fifo_sig;
+wire uart_start_sig;
 fifo_control u_fifo_control
 (
     .in_rst(in_rst),
@@ -65,7 +65,7 @@ fifo_control u_fifo_control
     .in_uart_send_start(uart_send_start),
     .in_addata(in_addata[9:2]), 
     .out_fifo_data(fifo_data2uart),
-    .out_fifo_sig(fifo_sig)
+    .out_fifo_end_sig(uart_start_sig)
 );
 
 wire uart_force_send;
@@ -79,7 +79,7 @@ uart_send_control u_uart_send_control
     .in_rst(in_rst),
     .in_clk(in_clk),
     .in_uart_data(uart_data),
-    .in_fifo_sig(fifo_sig),
+    .in_uart_start_sig(uart_start_sig),
     .uart_force_send(uart_force_send),
 
     .out_uart_txd(out_uart_txd),

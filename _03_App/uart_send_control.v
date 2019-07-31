@@ -3,7 +3,7 @@ module uart_send_control
     input       in_rst,
     input       in_clk,
     input[7:0]  in_uart_data,
-    input       in_fifo_sig,
+    input       in_uart_start_sig,
     input       uart_force_send,
     
     //uart接口
@@ -26,7 +26,7 @@ wire        uart_en_w;                 //UART发送使能
 wire        uart_send_once_done;
 
 assign      uart_en_w = uart_send_sig | uart_force_send;
-
+//例化串口发送模块
 uart_send #(                          //串口发送模块
     .CLK_FREQ       (CLK_FREQ),       //设置系统时钟频率
     .UART_BPS       (UART_BPS))       //设置串口发送波特率
@@ -44,13 +44,14 @@ u_uart_send(
 reg         uart_send_start;
 reg [9:0]   uart_send_cnt;
 
-reg in_fifo_sig_d;
+reg in_uart_start_sig_d;
 always @(posedge in_clk)
-    in_fifo_sig_d <= in_fifo_sig;
+    in_uart_start_sig_d <= in_uart_start_sig;
 
+//控制uart_send_start，串口发送状态
 always @(posedge in_clk)
 begin
-    if(in_fifo_sig == 0 && in_fifo_sig_d == 1) begin //检测FIFO错误数据发送结束
+    if(in_uart_start_sig == 0 && in_uart_start_sig_d == 1) begin //检测发送启动信号
         uart_send_start <= 1;
     end
     else if(uart_send_cnt == DATA_NUM) begin
@@ -64,6 +65,7 @@ reg uart_send_once_done_d;
 always @(posedge in_clk)
     uart_send_once_done_d <= uart_send_once_done;
 
+//发送数量计数器，每发完一个数据加一
 always @(posedge in_clk)
 begin
     if(uart_send_start) begin
@@ -74,6 +76,7 @@ begin
         uart_send_cnt <= 0;
 end
 
+//延迟发送状态信号
 reg uart_send_sig;
 reg uart_send_start_d0;
 reg uart_send_start_d1;
@@ -82,7 +85,7 @@ always @(posedge in_clk) begin
     uart_send_start_d1 <= uart_send_start_d0;
 end
 
-
+//给底层串口模块的发送信号
 always @(posedge in_clk)
 begin
     if(uart_send_start) begin

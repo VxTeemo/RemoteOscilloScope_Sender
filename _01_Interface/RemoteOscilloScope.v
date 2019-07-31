@@ -12,7 +12,7 @@
 module RemoteOscilloScope
 ( 
     /* Drive_Clock -------------------*/
-    input       clk_50M, 
+    input       clk_50M,
     input       rst,
     input       in_key,
     input       in_request_n,

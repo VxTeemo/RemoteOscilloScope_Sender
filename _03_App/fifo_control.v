@@ -9,9 +9,9 @@ module fifo_control
     input       in_uart_send_sig,
     input[7:0]  in_addata,
     output[7:0] out_fifo_data,
-    output      out_fifo_sig
+    output      out_fifo_end_sig
 );
-assign out_fifo_sig = fifo_enable ? fifo_rdclk_mess_start : 1'b0;
+assign out_fifo_end_sig = fifo_enable ? fifo_rdclk_mess_start : 1'b0;
 
 //parameter define
 parameter  DATA_NUM = 10'd405;
