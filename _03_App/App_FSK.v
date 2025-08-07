@@ -64,23 +64,23 @@ begin
     begin
         //out_rdFIFOreq <= 1;
         
-        if(fsk_data==1)   //1发送500k,高电平
+        if(fsk_data==1)   // Send 500kHz for logic '1', high level
         begin
-            fsk_wave_cnt <= (fsk_wave_cnt + 1)%100; //25 500k 1us切换一次电平 2us一个周期
+            fsk_wave_cnt <= (fsk_wave_cnt + 1)%100; // 25 cycles for 500kHz: 1us toggle period, 2us full cycle
         end
         else
         begin
-            fsk_wave_cnt <= (fsk_wave_cnt + 1)%125; //20 400k 1.25us切换一次电平 2.5us一个周期
+            fsk_wave_cnt <= (fsk_wave_cnt + 1)%125; // 20 cycles for 400kHz: 1.25us toggle period, 2.5us full cycle
         end
         
         
-        if(fsk_wave_cnt == 0) //计数半次波形结束，需要切换电平 
+        if(fsk_wave_cnt == 0) // Half waveform count complete, need to toggle level 
         begin
             fsk_switch_cnt = fsk_switch_cnt + 1;
             fsk_signal = ~fsk_signal;
            
-            if((fsk_data==0 && fsk_switch_cnt==8) || (fsk_data==1 && fsk_switch_cnt==10)) //一个位的数据发送结束，需要切换下一位数据
-            begin                                                                         //10us 4/5次完整周期 100k
+            if((fsk_data==0 && fsk_switch_cnt==8) || (fsk_data==1 && fsk_switch_cnt==10)) // One bit transmission complete, switch to next bit
+            begin                                                                         // 10us: 4/5 complete cycles at 100kHz
                 fsk_switch_cnt = 0;
                 output_data_cnt <= (output_data_cnt + 1)%10;
                 //fsk_data = 1;
@@ -88,7 +88,7 @@ begin
                 fsk_data <= output_data[0];
                 output_data <= (output_data>>1);
                 
-                if(output_data_cnt == 0) //一串数据发送结束,100us    10bit 10k 100us 0.1ms*160=16ms
+                if(output_data_cnt == 0) // One data string transmission complete: 100us (10bit @ 10kHz = 100us, 0.1ms*160=16ms)
                 begin
                     send_data_cnt <= (send_data_cnt+1)%100;   //100 10ms/cycle
                     

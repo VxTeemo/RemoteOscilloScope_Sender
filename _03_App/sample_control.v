@@ -140,7 +140,7 @@ delta_t_clk_mux delta_t_clk_mux_inst (
     .result ( delta_t_clk )
     );
 
-//触发后延迟测量时间计数器，即计算\delta t的计数器，每次延迟的时间增加1
+// Post-trigger delay measurement counter - calculates delta-t increments, increasing delay time each cycle
 reg [9:0] measure_delay_cnt;
 
 always @(posedge delta_t_clk or negedge in_rst)
@@ -163,7 +163,7 @@ end
 
 reg [9:0] measure_index;
 reg measure_flag;
-//测量信号，达到计数值n\delta t后产生信号
+// Measurement signal generation - triggers after reaching count value n*delta_t
 always @(posedge in_clk)
 begin
     if(measure_delay_cnt == measure_index) begin
@@ -185,13 +185,13 @@ always @(posedge in_clk)
 always @(posedge in_clk)
 begin
     if(measure_start) begin
-        if(in_sample_rate_select[1]) begin //实时采样
-            if(in_clk_1k == 1 && in_clk_1k_d == 0) begin //1ms一次的上升沿
+        if(in_sample_rate_select[1]) begin // Real-time sampling mode
+            if(in_clk_1k == 1 && in_clk_1k_d == 0) begin // 1ms rising edge trigger
                 measure_index <= measure_index + 1'b1;
             end
         end
-        else begin //等效采样
-            if(measure_flag == 1 && measure_flag_d == 0) begin //检测到触发信号上升沿
+        else begin // Equivalent sampling mode
+            if(measure_flag == 1 && measure_flag_d == 0) begin // Detect measurement trigger rising edge
                 measure_index <= measure_index + 1'b1;
             end
         end
@@ -201,7 +201,7 @@ begin
     end
 end
 
-reg measure_done;       //测量结束信号
+reg measure_done;       // Measurement completion signal
 reg measure_done_d;
 reg [9:0] measure_cnt;
 reg measure_once_start;
@@ -209,14 +209,14 @@ reg measure_hold_sig;
 always @(posedge in_clk)
     measure_done_d <= measure_done;
 
-//采样保持信号
+// Sample-and-hold signal control
 always @(posedge in_clk)
 begin
     if(measure_start) begin
-        if(measure_flag == 1 && measure_flag_d == 0) begin //检测到测量信号上升沿
+        if(measure_flag == 1 && measure_flag_d == 0) begin // Detect measurement signal rising edge
             measure_hold_sig <= 0;
         end
-        else if(measure_done == 1 && measure_done_d == 0) begin //检测到测量结束上升沿
+        else if(measure_done == 1 && measure_done_d == 0) begin // Detect measurement completion rising edge
             measure_hold_sig <= 1;
         end
         else 
@@ -258,10 +258,10 @@ always @(posedge in_clk)
 always @(posedge in_clk)
 begin
     if(measure_start) begin
-        if(measure_flag == 1 && measure_flag_d == 0) begin //检测到测量信号上升沿
+        if(measure_flag == 1 && measure_flag_d == 0) begin // Detect measurement signal rising edge
             measure_adc_sig <= 1;
         end
-        else if(measure_adc_done == 1 && measure_adc_done_d == 0) begin //检测到测量结束上升沿
+        else if(measure_adc_done == 1 && measure_adc_done_d == 0) begin // Detect measurement completion rising edge
             measure_adc_sig <= 0;
         end
         else 

@@ -74,7 +74,7 @@ reg [9:0]   fifo_rdclk_mess_cnt;
 
 always @(posedge in_clk)
 begin
-    if(measure_sig == 0 && measure_sig_d == 1 && fifo_enable) begin //检测测量信号下降沿，即测量结束信号
+    if(measure_sig == 0 && measure_sig_d == 1 && fifo_enable) begin // Detect measurement signal falling edge (measurement end signal)
         fifo_rdclk_mess_start <= 1;
     end
     else if(fifo_rdclk_mess_cnt == 110) begin
