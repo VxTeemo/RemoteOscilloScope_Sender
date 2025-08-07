@@ -1,38 +1,53 @@
-/*******************************(C) COPYRIGHT 2019 Teemo（陈晓东）*********************************/
+/*******************************(C) COPYRIGHT 2019 Teemo (Chen Xiaodong)*********************************/
 /**============================================================================
 * @FileName    : App_DataControl.v
-* @Description : 读取ADC的实时数据，存储到FIFO中，并使用UART发送数据
+* @Description : Read real-time ADC data, store to FIFO, and send via UART
 * @Date        : 2019/7/22
-* @By          : Teemo（陈晓东）
+* @By          : Teemo (Chen Xiaodong)
 * @Email       : 
 * @Platform    : Quartus Prime 18.0 (64-bit) (EP4CE22E22C8)
-* @Explain     : 控制ADC与UART的数据传输
-*=============================================================================*/ 
-/* 设置接口 ---------------------------*/
+* @Explain     : Controls data transfer between ADC and UART
+*=============================================================================*/
+
+/**
+ * Data Control Application Module
+ * Main controller for ADC data acquisition and UART transmission.
+ * Supports multiple sampling modes:
+ * - Real-time 1kHz sampling (in_sample_rate_select[1] = 1)
+ * - Equivalent 10MHz sampling (in_sample_rate_select = 2'b01) 
+ * - Equivalent 200MHz sampling (in_sample_rate_select = 2'b00)
+ */ 
+/* Interface Setup ------------------*/
 module App_DataControl
 ( 
-    input       in_rst,
-    input       in_clk,
-    input       in_clk_200M,
-    input       in_clk_10M,
-    input       in_clk_1k,
-    input       in_trigger_n,
-    input[9:0]  in_addata,
-    input       in_request_n,
-    input[1:0]  in_sample_rate_select,
+    input       in_rst,                    // Reset signal, active low
+    input       in_clk,                    // Main system clock
+    input       in_clk_200M,               // 200MHz high-speed clock
+    input       in_clk_10M,                // 10MHz medium-speed clock
+    input       in_clk_1k,                 // 1kHz low-speed clock
+    input       in_trigger_n,              // External trigger signal, active low
+    input[9:0]  in_addata,                 // 10-bit ADC input data
+    input       in_request_n,              // Sampling request signal, active low
+    input[1:0]  in_sample_rate_select,     // Sample rate selection bits
     
-    //uart接口
-    output      out_uart_txd,
+    // UART interface
+    output      out_uart_txd,              // UART transmit data output
     
-    output      out_adc_clk,
-    output      out_measure_hold_sig
-    
+    output      out_adc_clk,               // ADC sampling clock output
+    output      out_measure_hold_sig       // Sampling hold signal output
 );
 
-//in_sample_rate_select[1] 1:1K实时采样 0:等效采样
-//in_sample_rate_select[0] 1:10M等效采样 0:200M等效采样 in_sample_rate_select[1]为0时有效
+//in_sample_rate_select[1]: 1=1kHz real-time sampling, 0=equivalent sampling
+//in_sample_rate_select[0]: 1=10MHz equivalent sampling, 0=200MHz equivalent sampling (valid when [1]=0)
 
+// Sampling control signals
 wire measure_sig;
+
+/**
+ * Sample Control Module
+ * Manages sampling timing, trigger detection, and clock generation
+ * for different sampling modes (real-time vs equivalent sampling)
+ */
 sample_control u_sample_control
 ( 
     .in_rst(in_rst),
@@ -50,10 +65,17 @@ sample_control u_sample_control
 );
 
 
-wire out_uart_send_sig;
-wire uart_send_start;
-wire [7:0]fifo_data2uart;
-wire uart_start_sig;
+// FIFO control signals
+wire out_uart_send_sig;     // UART send completion signal
+wire uart_send_start;       // UART send start signal  
+wire [7:0]fifo_data2uart;   // 8-bit data from FIFO to UART
+wire uart_start_sig;        // UART transmission start signal
+
+/**
+ * FIFO Control Module  
+ * Manages data buffering between ADC sampling and UART transmission.
+ * Controls FIFO write/read operations and data flow timing.
+ */
 fifo_control u_fifo_control
 (
     .in_rst(in_rst),
@@ -68,12 +90,19 @@ fifo_control u_fifo_control
     .out_fifo_end_sig(uart_start_sig)
 );
 
+// Force send mode for real-time sampling
 wire uart_force_send;
 assign uart_force_send = in_sample_rate_select[1] ? in_clk_1k : 1'b0 ;
 
-
+// Data multiplexing for different sampling modes  
 wire [7:0] uart_data;
 assign uart_data = in_sample_rate_select[1] ? in_addata[9:2] : fifo_data2uart ;
+
+/**
+ * UART Send Control Module
+ * Coordinates UART transmission timing and data flow.
+ * Handles both real-time direct transmission and FIFO-buffered transmission.
+ */
 uart_send_control u_uart_send_control
 ( 
     .in_rst(in_rst),
@@ -88,7 +117,7 @@ uart_send_control u_uart_send_control
 );
 
 endmodule
-/*******************************(C) COPYRIGHT 2019 Teemo（陈晓东）*********************************/
+/*******************************(C) COPYRIGHT 2019 Teemo (Chen Xiaodong)*********************************/
 
 
 

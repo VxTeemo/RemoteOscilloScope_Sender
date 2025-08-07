@@ -1,38 +1,46 @@
-/*******************************(C) COPYRIGHT 2017 Wind（谢玉伸）*********************************/
+/*******************************(C) COPYRIGHT 2017 Wind (Xie Yushen)*********************************/
 /**============================================================================
 * @FileName    : Drive_Clock.v
-* @Description : 时钟文件
+* @Description : Clock generation module
 * @Date        : 2017/4/16
-* @By          : Wind（谢玉伸）
+* @By          : Wind (Xie Yushen)
 * @Email       : 1659567673@ qq.com
 * @Platform    : Quartus II 15.0 (64-bit) (EP4CE22E22C8)
-* @Explain     : 提供us、ms、s的时钟信号源
-*=============================================================================*/ 
+* @Explain     : Provides us, ms, and s level clock signal sources
+*=============================================================================*/
+
+/**
+ * Clock Divider Module
+ * Generates multiple clock frequencies from 50MHz input:
+ * - 1MHz (us level): 50 cycles per toggle
+ * - 1kHz (ms level): 50,000 cycles per toggle  
+ * - 50Hz (20ms level): 1,000,000 cycles per toggle
+ * - 1Hz (s level): 50,000,000 cycles per toggle
+ */ 
 module Drive_Clock
 (
-    input in_clk_50M    
-    ,input in_rst 
+    input in_clk_50M,    // 50MHz input clock
+    input in_rst,        // Reset signal, active low
 
-    ,output out_clk_us 
-    ,output out_clk_ms
-    ,output reg  out_clk_20ms
-    ,output out_clk_s  
+    output out_clk_us,   // 1MHz output (microsecond level)
+    output out_clk_ms,   // 1kHz output (millisecond level) 
+    output reg  out_clk_20ms,  // 50Hz output (20 millisecond level)
+    output out_clk_s     // 1Hz output (second level)
 );
 
-/* 寄存器配置 -------------------------*/
-reg [31:0]time_20ns;//20ns级的计时器
-//reg [31:0]time_20ns_2;//20ns级的计时器
-reg clk_us;//us级的时钟 
-reg clk_ms;//ms级的时钟 
-reg clk_s;//s级的时钟 
+/* Register Configuration -----------*/
+reg [31:0]time_20ns;  // 20ns level counter (based on 50MHz = 20ns period)
+reg clk_us;           // Microsecond level clock register
+reg clk_ms;           // Millisecond level clock register  
+reg clk_s;            // Second level clock register
  
-/* 连接寄存器 ---------------------------*/
+/* Connect Output Registers ---------*/
 assign out_clk_us = clk_us; 
 assign out_clk_ms = clk_ms;  
 assign out_clk_s = clk_s;  
  
  
-/* 运行线程 ---------------------------*/
+/* Main Clock Generation Logic ------*/
 always @(posedge in_clk_50M or negedge in_rst)
 begin 
     if(in_rst == 0) 
@@ -46,17 +54,17 @@ begin
 	 else 
 		begin
 			time_20ns <= (time_20ns + 1)%500000000; 
-			if(time_20ns%(50/2) == 0) clk_us = ~clk_us;
-			if(time_20ns%(50000/2) == 0) clk_ms = ~clk_ms;
-			if(time_20ns%(1000000/2) == 0) out_clk_20ms = ~out_clk_20ms; 
-			if(time_20ns == (50000000/2)) clk_s = ~clk_s; 
+			if(time_20ns%(50/2) == 0) clk_us = ~clk_us;           // Toggle every 25 cycles (1MHz)
+			if(time_20ns%(50000/2) == 0) clk_ms = ~clk_ms;        // Toggle every 25,000 cycles (1kHz)
+			if(time_20ns%(1000000/2) == 0) out_clk_20ms = ~out_clk_20ms; // Toggle every 500,000 cycles (50Hz)
+			if(time_20ns == (50000000/2)) clk_s = ~clk_s;         // Toggle every 25,000,000 cycles (1Hz)
 		end
 end
 
  
  
 endmodule
-/*******************************(C) COPYRIGHT 2017 Wind（谢玉伸）*********************************/
+/*******************************(C) COPYRIGHT 2017 Wind (Xie Yushen)*********************************/
 
 
 
