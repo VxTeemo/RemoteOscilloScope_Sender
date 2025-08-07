@@ -1,42 +1,53 @@
-/*******************************(C) COPYRIGHT 2019 Teemo（陈晓东）*********************************/
+/*******************************(C) COPYRIGHT 2019 Teemo (Chen Xiaodong)*********************************/
 /**============================================================================
-* @FileName    : App_fsk_signal.v
-* @Description : FSK调制模块
+* @FileName    : App_FSK.v
+* @Description : FSK modulation module
 * @Date        : 2019/4/23
-* @By          : Teemo（陈晓东）
+* @By          : Teemo (Chen Xiaodong)
 * @Email       : 
 * @Platform    : Quartus Prime 18.0 (64-bit) (EP4CE22E22C8)
-* @Explain     : FSK的应用程序
-*=============================================================================*/ 
-/* 设置接口 ---------------------------*/
+* @Explain     : FSK modulation application for data transmission
+*=============================================================================*/
+
+/**
+ * FSK Modulation Module
+ * Implements Frequency Shift Keying (FSK) modulation for data transmission.
+ * Modulates digital data onto carrier frequencies:
+ * - Logic '1': 500kHz carrier (2us period)  
+ * - Logic '0': 400kHz carrier (2.5us period)
+ * 
+ * Features:
+ * - 10-bit data frame transmission
+ * - FIFO data reading interface
+ * - Temperature sensor data integration
+ * - Configurable transmission timing
+ */ 
+/* Interface Setup ------------------*/
 module App_FSK
 ( 
-	input in_clr     
-	,input in_clk     
-	,input[9:0] in_ADFIFO  
-	,input in_rdFIFOempty
-    ,input[4:0] DS18B20_Input
+	input in_clr,                   // Reset signal, active low     
+	input in_clk,                   // System clock input    
+	input[9:0] in_ADFIFO,           // 10-bit data from FIFO  
+	input in_rdFIFOempty,           // FIFO empty flag
+    input[4:0] DS18B20_Input,       // 5-bit temperature sensor input
     
-	,output reg out_rdFIFOclk   
-	,output reg out_rdFIFOreq
-	,output reg fsk_data
-	,output out_FSK
-	 
+	output reg out_rdFIFOclk,       // FIFO read clock   
+	output reg out_rdFIFOreq,       // FIFO read request
+	output reg fsk_data,            // Current data bit being transmitted
+	output out_FSK                  // FSK modulated output signal
 );	 
 
-/* 寄存器配置 -------------------------*/
-reg fsk_signal;//fsk_signal
-reg [6:0]fsk_wave_cnt;
-reg [3:0]fsk_switch_cnt;
-reg [9:0]output_data;
-reg [9:0]old_output_data;
-reg [7:0]output_data_cnt;
-reg [8:0]send_data_cnt;
+/* Register Configuration -----------*/
+reg fsk_signal;                 // FSK carrier signal output
+reg [6:0]fsk_wave_cnt;          // Wave generation counter for carrier frequency
+reg [3:0]fsk_switch_cnt;        // Counter for level switching within each bit
+reg [9:0]output_data;           // Current 10-bit data frame being transmitted
+reg [9:0]old_output_data;       // Previous data frame (for repeat on FIFO empty)
+reg [7:0]output_data_cnt;       // Bit counter within current data frame
+reg [8:0]send_data_cnt;         // Frame counter for transmission sequence
 
-
-/* 连接输出 ---------------------------*/
+/* Output Connections ---------------*/
 assign out_FSK = fsk_signal;
-//assign fsk_data = output_data[0];
 /* 运行线程 ---------------------------*/
 always @(posedge in_clk or negedge in_clr)// or posedge sig_20msclk or posedge ack_20msclk
 begin   

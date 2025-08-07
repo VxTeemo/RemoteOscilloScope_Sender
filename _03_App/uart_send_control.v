@@ -1,35 +1,50 @@
+/**
+ * UART Send Control Module
+ * Coordinates UART transmission timing and data flow control.
+ * Handles both FIFO-buffered data transmission and real-time force send mode.
+ * 
+ * Key Features:
+ * - Configurable transmission count (405 data samples)
+ * - Force send capability for real-time sampling mode
+ * - Automatic byte-by-byte transmission control
+ * - Status signaling for data flow synchronization
+ */
 module uart_send_control
 ( 
-    input       in_rst,
-    input       in_clk,
-    input[7:0]  in_uart_data,
-    input       in_uart_start_sig,
-    input       uart_force_send,
+    input       in_rst,                // Reset signal, active low
+    input       in_clk,                // Main system clock
+    input[7:0]  in_uart_data,          // 8-bit data to be transmitted
+    input       in_uart_start_sig,     // Start signal for transmission sequence
+    input       uart_force_send,       // Force send mode (for real-time sampling)
     
-    //uart接口
-    output      out_uart_txd,
-    output      out_uart_send_sig,
-    output      out_uart_send_start
+    // UART interface
+    output      out_uart_txd,          // UART transmit data output
+    output      out_uart_send_sig,     // Send signal to external modules
+    output      out_uart_send_start    // Send start signal to external modules
 );
 assign out_uart_send_sig = uart_send_sig;
 assign out_uart_send_start = uart_send_start;
-//parameter define
-parameter  DATA_NUM = 10'd405;
 
-//parameter define
-parameter  CLK_FREQ = 200000000;       //定义系统时钟频率
-parameter  UART_BPS = 115200;         //定义串口波特率
+//Parameter Definitions
+parameter  DATA_NUM = 10'd405;          // Number of data samples to transmit
 
-//wire define   
-wire        uart_en_w;                 //UART发送使能
-//wire [7:0] uart_data_w;               //UART发送数据
-wire        uart_send_once_done;
+//UART Configuration Parameters  
+parameter  CLK_FREQ = 200000000;        // System clock frequency (200MHz)
+parameter  UART_BPS = 115200;           // UART baud rate (115200 bps)
+
+//Internal Signal Definitions   
+wire        uart_en_w;                  // UART transmission enable
+wire        uart_send_once_done;        // Single byte transmission completion
 
 assign      uart_en_w = uart_send_sig | uart_force_send;
-//例化串口发送模块
-uart_send #(                          //串口发送模块
-    .CLK_FREQ       (CLK_FREQ),       //设置系统时钟频率
-    .UART_BPS       (UART_BPS))       //设置串口发送波特率
+
+/**
+ * UART Send Module Instance
+ * Low-level UART transmission module with configurable baud rate
+ */
+uart_send #(                            // UART transmission module
+    .CLK_FREQ       (CLK_FREQ),         // Set system clock frequency
+    .UART_BPS       (UART_BPS))         // Set UART transmission baud rate
 u_uart_send(                 
     .sys_clk        (in_clk),
     .sys_rst_n      (in_rst),
@@ -40,18 +55,21 @@ u_uart_send(
     .done_flag      (uart_send_once_done)
 );
 
+// Control Registers and Counters
+reg         uart_send_start;            // UART transmission start control
+reg [9:0]   uart_send_cnt;              // Transmitted data counter
 
-reg         uart_send_start;
-reg [9:0]   uart_send_cnt;
-
-reg in_uart_start_sig_d;
+reg in_uart_start_sig_d;                // Delayed start signal for edge detection
 always @(posedge in_clk)
     in_uart_start_sig_d <= in_uart_start_sig;
 
-//控制uart_send_start，串口发送状态
+/**
+ * UART Send Start Control
+ * Controls uart_send_start signal and overall transmission state
+ */
 always @(posedge in_clk)
 begin
-    if(in_uart_start_sig == 0 && in_uart_start_sig_d == 1) begin //检测发送启动信号
+    if(in_uart_start_sig == 0 && in_uart_start_sig_d == 1) begin // Detect transmission start signal
         uart_send_start <= 1;
     end
     else if(uart_send_cnt == DATA_NUM) begin
@@ -61,35 +79,42 @@ begin
         uart_send_start <= uart_send_start;
 end
 
-reg uart_send_once_done_d;
+reg uart_send_once_done_d;              // Delayed completion signal for edge detection
 always @(posedge in_clk)
     uart_send_once_done_d <= uart_send_once_done;
 
-//发送数量计数器，每发完一个数据加一
+/**
+ * Transmission Counter
+ * Counts number of bytes transmitted, increments after each byte completion
+ */
 always @(posedge in_clk)
 begin
     if(uart_send_start) begin
-        if(uart_send_once_done == 1 && uart_send_once_done_d == 0) //串口发送一个数据结束上升沿
+        if(uart_send_once_done == 1 && uart_send_once_done_d == 0) // UART single byte transmission completion rising edge
             uart_send_cnt <= uart_send_cnt + 1'b1;
     end
     else
         uart_send_cnt <= 0;
 end
 
-//延迟发送状态信号
-reg uart_send_sig;
-reg uart_send_start_d0;
-reg uart_send_start_d1;
+// Delayed Send State Signals
+reg uart_send_sig;                      // Send signal for low-level UART module
+reg uart_send_start_d0;                 // First stage delay of start signal
+reg uart_send_start_d1;                 // Second stage delay of start signal
+
 always @(posedge in_clk) begin
     uart_send_start_d0 <= uart_send_start;
     uart_send_start_d1 <= uart_send_start_d0;
 end
 
-//给底层串口模块的发送信号
+/**
+ * UART Send Signal Generation
+ * Generates send pulses for the low-level UART transmission module
+ */
 always @(posedge in_clk)
 begin
     if(uart_send_start) begin
-        if(uart_send_start_d0 == 1 && uart_send_start_d1 == 0) begin //串口开始发送，延时一个时钟
+        if(uart_send_start_d0 == 1 && uart_send_start_d1 == 0) begin // UART transmission start, delay one clock
             uart_send_sig <= 1;
         end
         else if(uart_send_once_done == 1 && uart_send_once_done_d == 0) begin

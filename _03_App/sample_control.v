@@ -1,58 +1,78 @@
+/**
+ * Sample Control Module
+ * Controls ADC sampling timing and trigger detection for different sampling modes.
+ * Supports both real-time sampling (1kHz) and equivalent sampling (10MHz/200MHz).
+ * 
+ * Key Features:
+ * - Trigger edge detection and delay control
+ * - Equivalent sampling with programmable delta-t timing
+ * - Sample-and-hold signal generation  
+ * - ADC clock generation with precise timing
+ */
 module sample_control
 ( 
-    input       in_rst,
-    input       in_clk,
-    input       in_clk_200M,
-    input       in_clk_10M,
-    input       in_clk_1k,
-    input       in_trigger_n,
-    input       in_request_n,
-    input[1:0]  in_sample_rate_select,
+    input       in_rst,                    // Reset signal, active low
+    input       in_clk,                    // Main system clock (200MHz)
+    input       in_clk_200M,               // 200MHz high-speed clock
+    input       in_clk_10M,                // 10MHz medium-speed clock  
+    input       in_clk_1k,                 // 1kHz low-speed clock
+    input       in_trigger_n,              // External trigger signal, active low
+    input       in_request_n,              // Sampling request signal, active low
+    input[1:0]  in_sample_rate_select,     // Sample rate selection
     
-    output      out_adc_clk,
-    output      out_measure_hold_sig,
-    output      out_measure_sig
+    output      out_adc_clk,               // ADC sampling clock output
+    output      out_measure_hold_sig,      // Sample-and-hold signal output
+    output      out_measure_sig            // Measurement trigger signal output
 );
 assign out_measure_sig = measure_start;
 
-//parameter define
-parameter  DATA_NUM = 10'd405;
+//Parameter Definitions for Timing Control
+parameter  DATA_NUM = 10'd405;             // Number of data samples to collect
 
-parameter  SYS_CLK = 200_000_000;
-parameter  TRIGGER_DELAY_TIME   = 1_000_000;    //1M的时间 1us
-parameter  TRIGGER_DELAY_CNT    =   10'd200;
-parameter  MEASURE_DONE_TIME    = 2_000_000;    //0.5us
-parameter  MEASURE_DONE_CNT     =   10'd100;
-parameter  ADC_CLK_DELAY_TIME   = 4_000_000;    //0.25us
-parameter  ADC_CLK_DELAY        =    10'd50;
+parameter  SYS_CLK = 200_000_000;          // System clock frequency (200MHz)
+parameter  TRIGGER_DELAY_TIME   = 1_000_000;    // 1M time units (1us)
+parameter  TRIGGER_DELAY_CNT    =   10'd200;    // Trigger delay counter limit
+parameter  MEASURE_DONE_TIME    = 2_000_000;    // 0.5us timing
+parameter  MEASURE_DONE_CNT     =   10'd100;    // Measurement completion counter
+parameter  ADC_CLK_DELAY_TIME   = 4_000_000;    // 0.25us timing  
+parameter  ADC_CLK_DELAY        =    10'd50;    // ADC clock delay counter
 
+//Alternative parameter calculations (commented)
 //localparam TRIGGER_DELAY_CNT    = SYS_CLK / TRIGGER_DELAY_TIME;
 //localparam MEASURE_DONE_CNT     = SYS_CLK / MEASURE_DONE_TIME;
 //localparam ADC_CLK_DELAY        = SYS_CLK / ADC_CLK_DELAY_TIME;
 
-/* 连接输出 ---------------------------*/
+/* Output Signal Assignments ----------*/
 assign out_measure_hold_sig = measure_hold_sig;
 assign out_adc_clk = measure_adc_clk;
 
+/* Register Configuration -------------*/
 
-/* 寄存器配置 -------------------------*/
-
-reg in_trigger_d;
-reg trigger_flag;
-wire in_trigger;
+// Trigger signal processing registers
+reg in_trigger_d;               // Delayed trigger signal for edge detection
+reg trigger_flag;               // Trigger detection flag
+wire in_trigger;                // Active-high trigger signal
 assign in_trigger = ~in_trigger_n;
-/* 运行线程 ---------------------------*/
+
+/* Main Control Logic ----------------*/
+/**
+ * Trigger edge detection - registers input for rising edge detection
+ */
 always @(posedge in_clk)
     in_trigger_d <= in_trigger;
 
-//生成触发信号，开始计时
+/**
+ * Trigger flag generation and control
+ * Generates trigger flag on rising edge of trigger signal when enabled
+ * Clears flag when measurement starts
+ */
 always @(posedge in_clk)
 begin
     if(measure_start) begin
-        if(in_trigger == 1 && in_trigger_d == 0 && trigger_enable) begin //检测到触发信号上升沿
+        if(in_trigger == 1 && in_trigger_d == 0 && trigger_enable) begin // Detect trigger rising edge
             trigger_flag <= 1;
         end
-        else if(measure_flag == 1 && measure_flag_d == 0) begin //检测到开始测量信号上升沿
+        else if(measure_flag == 1 && measure_flag_d == 0) begin // Detect measure start rising edge
             trigger_flag <= 0;
         end
         else
@@ -63,12 +83,18 @@ begin
     end
 end
 
-reg trigger_flag_d;
-reg trigger_enable;
-reg [9:0] trigger_delay_cnt;
+// Trigger enable control registers  
+reg trigger_flag_d;             // Delayed trigger flag for edge detection
+reg trigger_enable;             // Trigger enable signal
+reg [9:0] trigger_delay_cnt;    // Trigger delay counter
+
 always @(posedge in_clk)
     trigger_flag_d <= trigger_flag;
-//触发使能信号，每次触发后，延迟1M时间后才能进行下一次触发
+
+/**
+ * Trigger enable control with delay
+ * After each trigger, delays 1M time units before allowing next trigger
+ */
 always @(posedge in_clk)
 begin
     if(trigger_delay_cnt > TRIGGER_DELAY_CNT) begin
@@ -81,7 +107,11 @@ begin
         trigger_enable <= trigger_enable;
     end
 end
-//触发使能信号计数器，触发使能后开始计数
+
+/**
+ * Trigger delay counter
+ * Counts during trigger disable period
+ */
 always @(posedge in_clk)
 begin
     if(trigger_enable == 0) begin
@@ -91,11 +121,17 @@ begin
         trigger_delay_cnt <= 0;
 end
 
-//in_sample_rate_select[1] 1:1K实时采样 0:等效采样
-//in_sample_rate_select[0] 1:10M等效采样 0:200M等效采样 in_sample_rate_select[1]为0时有效
+//in_sample_rate_select[1]: 1=1kHz real-time sampling, 0=equivalent sampling
+//in_sample_rate_select[0]: 1=10MHz equivalent sampling, 0=200MHz equivalent sampling (valid when [1]=0)
 
+// Clock multiplexer for equivalent sampling
 wire delta_t_clk;
 //assign delta_t_clk = in_sample_rate_select[0] ? in_clk_10M : in_clk_200M ;
+
+/**
+ * Delta-t Clock Multiplexer  
+ * Selects between 10MHz and 200MHz clocks for equivalent sampling timing
+ */
 
 delta_t_clk_mux delta_t_clk_mux_inst (
     .data0 ( in_clk_10M ),
