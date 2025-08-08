@@ -1,30 +1,42 @@
-/*******************************(C) COPYRIGHT 2017 Wind（谢玉伸）*********************************/
+/*******************************(C) COPYRIGHT 2017 Wind (Xie Yushen)*********************************/
 /**============================================================================
 * @FileName    : Drive_Usart_Top.v
-* @Description : 串口顶层文件
+* @Description : UART top-level module
 * @Date        : 2017/5/1
-* @By          : Wind（谢玉伸）
+* @By          : Wind (Xie Yushen)
 * @Email       : 1659567673@ qq.com
 * @Platform    : Quartus II 15.0 (64-bit) (EP4CE22E22C8)
-* @Explain     : 串口顶层接口
-*=============================================================================*/ 
+* @Explain     : UART top-level interface for frequency measurement transmission
+*=============================================================================*/
+
+/**
+ * UART Top-Level Module
+ * Integrates UART communication handling and frequency data transmission.
+ * Manages communication between frequency measurement module and external PC.
+ */ 
 module Drive_Usart_Top
 (   
-    input in_clr,
-    input in_clk_us,
-    input in_rx,
-    input in_key,
+    input in_clr,               // Reset signal, active low
+    input in_clk_us,            // Microsecond clock input  
+    input in_rx,                // UART receive data input
+    input in_key,               // Key input for manual transmission
 
-    output out_tx,
-    output [4:2]out_led,
+    output out_tx,              // UART transmit data output
+    output [4:2]out_led,        // LED status indicators
 
-    input [31:0]out_set_freq //设置频率
+    input [31:0]out_set_freq    // Frequency data to be transmitted
 );
 
 
 
-wire w_send_update;
-wire [7:0]w_send_byte;
+// Internal signal connections
+wire w_send_update;         // Send update signal from handler to BSP
+wire [7:0]w_send_byte;      // Byte data to be transmitted
+
+/**
+ * UART Protocol Handler Module
+ * Processes frequency data formatting and transmission control
+ */
 Drive_Usart_Handle  Drive_Usart_Handle
 (
     .in_clr(in_clr),
@@ -41,8 +53,14 @@ Drive_Usart_Handle  Drive_Usart_Handle
 );
 
 
-wire w_receive_update; 
-wire [7:0]w_receive_byte; 
+// UART physical layer interface signals
+wire w_receive_update;      // Receive update signal from BSP to handler 
+wire [7:0]w_receive_byte;   // Received byte data
+
+/**
+ * UART Physical Layer (BSP) Module
+ * Handles low-level UART communication at 9600 bps
+ */ 
 Drive_Usart_Bsp Drive_Usart_Bsp
 (
     .in_clr(in_clr),
@@ -60,9 +78,7 @@ Drive_Usart_Bsp Drive_Usart_Bsp
 
 endmodule
 
-
-
-/*******************************(C) COPYRIGHT 2017 Wind（谢玉伸）*********************************/
+/*******************************(C) COPYRIGHT 2017 Wind (Xie Yushen)*********************************/
 
 
 

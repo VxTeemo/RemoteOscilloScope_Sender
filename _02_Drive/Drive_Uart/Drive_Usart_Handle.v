@@ -1,30 +1,35 @@
-/*******************************(C) COPYRIGHT 2017 Wind（谢玉伸）*********************************/
+/*******************************(C) COPYRIGHT 2017 Wind (Xie Yushen)*********************************/
 /**============================================================================
 * @FileName    : Drive_Usart_Handle.v
-* @Description : 串口处理文件
+* @Description : UART protocol handler module
 * @Date        : 2017/5/1
-* @By          : Wind（谢玉伸）
+* @By          : Wind (Xie Yushen)
 * @Email       : 1659567673@ qq.com
 * @Platform    : Quartus II 15.0 (64-bit) (EP4CE22E22C8)
-* @Explain     : 处理帧数据
-*=============================================================================*/ 
+* @Explain     : Processes frame data and handles communication protocol
+*=============================================================================*/
+
+/**
+ * UART Protocol Handler Module
+ * Processes received UART data frames and formats transmission data.
+ * Handles frequency measurement data formatting and LED status control.
+ */ 
 module Drive_Usart_Handle
 (   
-	 input in_clr 
-	 ,input in_clk_us  
-	 ,input in_receive_update 
-	 ,input [7:0]in_receive_byte 
-	 ,input in_key
-	 ,input [31:0]in_test_freq
-	 ,input [31:0]in_test_Vpp
-    ,input [31:0]out_set_freq //设置频率
+	 input in_clr,                      // Reset signal, active low 
+	 input in_clk_us,                   // Microsecond clock input  
+	 input in_receive_update,           // Receive update signal
+	 input [7:0]in_receive_byte,        // Received byte data
+	 input in_key,                      // Key input signal
+	 input [31:0]in_test_freq,          // Test frequency input
+	 input [31:0]in_test_Vpp,           // Test peak-to-peak voltage input
+     input [31:0]out_set_freq,          // Set frequency data
 	 
-	 ,output reg out_send_update 
-	 ,output reg [7:0]out_send_byte 
-	 ,output reg [3:2]out_led  
-	  
-	  
-	 ,output reg [15:0]out_set_vpp  //设置峰峰值
+	 output reg out_send_update,        // Send update signal output
+	 output reg [7:0]out_send_byte,     // Byte data to be transmitted
+	 output reg [3:2]out_led,           // LED control output bits
+	  	  
+	 output reg [15:0]out_set_vpp       // Set peak-to-peak voltage output
 );
 
 

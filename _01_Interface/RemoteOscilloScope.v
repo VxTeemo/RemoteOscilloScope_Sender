@@ -1,49 +1,60 @@
- /*******************************(C) COPYRIGHT 2019 Teemo（陈晓东）*********************************/
+ /*******************************(C) COPYRIGHT 2019 Teemo (Chen Xiaodong)*********************************/
 /**============================================================================
 * @FileName    : RemoteOscilloScope.v
-* @Description : 顶层接口
+* @Description : Top-level interface module
 * @Date        : 2019/7/22
-* @By          : Teemo（陈晓东）
+* @By          : Teemo (Chen Xiaodong)
 * @Email       : 
 * @Platform    : Quartus Prime 18.0 (64-bit) (EP4CE22E22C8)
-* @Explain     : 接口的终端
+* @Explain     : Main top-level interface for remote oscilloscope system
 *=============================================================================*/   
-/* 顶层接口模块 ----------------------*/
+/**
+ * Top-level interface module for Remote Oscilloscope Sender
+ * Integrates clock generation, ADC data acquisition, UART communication,
+ * frequency measurement, LED indicators, and sampling control
+ */
 module RemoteOscilloScope
 ( 
-    /* Drive_Clock -------------------*/
-    input       clk_50M,
-    input       rst,
-    input       in_key,
-    input       in_request_n,
-    input[1:0]  in_sample_rate_select,
+    /* Clock and Control Inputs -----*/
+    input       clk_50M,                // 50MHz main input clock
+    input       rst,                    // Global reset signal, active low
+    input       in_key,                 // Sampling request key
+    input       in_request_n,           // Sampling request signal, active low
+    input[1:0]  in_sample_rate_select,  // Sample rate selection {1kHz, 10MHz, 200MHz}
     
-    /* Drive_Led ---------------------*/
-    output[3:0] led_bus,
+    /* LED Output --------------------*/
+    output[3:0] led_bus,                // 4-bit LED status indicators
 
-    /* Drive_ADC ---------------------*/
-    input [9:0] in_ADC_data,
-    output      out_OE_n,
-    output      out_clk_ADC,
+    /* ADC Interface -----------------*/
+    input [9:0] in_ADC_data,            // 10-bit ADC parallel data input
+    output      out_OE_n,               // ADC output enable, active low
+    output      out_clk_ADC,            // ADC sampling clock
     
-    /* Drive_DataControl -------------*/    
-    output      out_uart_txd,
+    /* UART Data Output --------------*/    
+    output      out_uart_txd,           // UART transmit data for ADC samples
     
-    /* Trigger signal from Comparator*/
-    input       in_trigger_n,
-    output      out_measure_hold_sig,
+    /* Trigger Signal ----------------*/
+    input       in_trigger_n,           // External trigger signal, active low
+    output      out_measure_hold_sig,   // Sampling hold signal output
     
-    /* Signal Freq measure ----------*/
-    output      out_freq_uart_tx,
+    /* Frequency Measurement ---------*/
+    output      out_freq_uart_tx,       // UART transmit for frequency measurement
     
-    output      out_clk_100k
+    /* Clock Output ------------------*/
+    output      out_clk_100k            // 100kHz output clock
 );
 
-/* Drive_Clock ----------------------*/
-wire out_clk_us;
-wire out_clk_ms;
-wire out_clk_20ms;
-wire out_clk_s;
+/* Clock Generation Module ---------*/
+// Internal clock signals for different timing requirements
+wire out_clk_us;        // Microsecond clock
+wire out_clk_ms;        // Millisecond clock  
+wire out_clk_20ms;      // 20 millisecond clock
+wire out_clk_s;         // Second clock
+
+/**
+ * Clock divider module - generates multiple clock frequencies
+ * from the main 50MHz input clock for system timing
+ */
 
 Drive_Clock u_Drive_Clock
 (  
@@ -56,8 +67,14 @@ Drive_Clock u_Drive_Clock
     .out_clk_s(out_clk_s) 
 );
 
-wire out_clk_200M;
-wire out_clk_10M;
+// PLL-generated high-speed clocks
+wire out_clk_200M;      // 200MHz high-speed sampling clock
+wire out_clk_10M;       // 10MHz medium-speed sampling clock
+
+/**
+ * Phase-Locked Loop (PLL) module - generates high-frequency clocks
+ * from 50MHz input for high-speed ADC sampling operations
+ */
 Drive_PLL u_Drive_PLL
 (
    .inclk0(clk_50M),
@@ -66,7 +83,13 @@ Drive_PLL u_Drive_PLL
    .c2(out_clk_100k)
 );
 
-wire [9:0]out_ADC_data;
+// ADC data interface signals  
+wire [9:0]out_ADC_data;   // Processed ADC data output
+
+/**
+ * ADC interface module - handles 10-bit ADC data acquisition
+ * with proper bit ordering and output enable control
+ */
 Drive_ADC u_Drive_ADC
 (
     .in_rst(rst),
@@ -77,8 +100,15 @@ Drive_ADC u_Drive_ADC
     .out_ADC_data(out_ADC_data)
 );
 
-wire out_adc_clk;
+// ADC clock selection logic
+wire out_adc_clk;        // Internal ADC clock signal
+// Select between 100kHz (real-time) or high-speed (equivalent sampling) clock
 assign out_clk_ADC = in_sample_rate_select[1] ? out_clk_100k : out_adc_clk;
+
+/**
+ * Data control module - main data acquisition and transmission controller
+ * Manages ADC sampling, FIFO buffering, and UART data transmission
+ */
 App_DataControl u_App_DataControl
 (
     .in_rst(rst),     
@@ -98,6 +128,10 @@ App_DataControl u_App_DataControl
 );  
 
 
+/**
+ * LED application module - provides visual status indication
+ * using flowing LED pattern to show system operation status
+ */
  App_Led u_App_Led
 (    
     .in_rst(rst), 
@@ -105,7 +139,13 @@ App_DataControl u_App_DataControl
     .out_led(led_bus)  
 );
 
-wire [31:0]data_fx;
+// Frequency measurement data interface
+wire [31:0]data_fx;      // Measured frequency value
+
+/**
+ * UART top module for frequency measurement output
+ * Transmits frequency measurement results via dedicated UART channel
+ */
 Drive_Usart_Top Drive_Usart_Top
 (
     .in_clk_us(out_clk_us),
@@ -115,19 +155,25 @@ Drive_Usart_Top Drive_Usart_Top
     .out_tx(out_freq_uart_tx)
 );
 
+// Frequency measurement input signal mapping
 wire in_freq_sig;
-assign in_freq_sig = in_trigger_n;
+assign in_freq_sig = in_trigger_n;  // Use trigger signal for frequency measurement
+
+/**
+ * Frequency measurement module - measures external signal frequency
+ * using gate-controlled counting method with 50MHz reference clock
+ */
 Drive_Freq u_Drive_Freq
 (
-    .in_clk_50M(clk_50M),             // 标准时钟信号
-    .in_clr(rst),                     // 复位信号
-    .Sig_in(in_freq_sig),                     // 被测时钟信号
-    .data_fx(data_fx)                    // 被测时钟频率输出
+    .in_clk_50M(clk_50M),             // Reference clock signal (50MHz)
+    .in_clr(rst),                     // Reset signal
+    .Sig_in(in_freq_sig),             // Input signal to be measured
+    .data_fx(data_fx)                 // Measured frequency output
 );
 
 
 endmodule
-/*******************************(C) COPYRIGHT 2019 Teemo（陈晓东）*********************************/
+/*******************************(C) COPYRIGHT 2019 Teemo (Chen Xiaodong)*********************************/
 
 
 

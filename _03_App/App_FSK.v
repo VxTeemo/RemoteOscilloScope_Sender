@@ -1,42 +1,53 @@
-/*******************************(C) COPYRIGHT 2019 Teemo（陈晓东）*********************************/
+/*******************************(C) COPYRIGHT 2019 Teemo (Chen Xiaodong)*********************************/
 /**============================================================================
-* @FileName    : App_fsk_signal.v
-* @Description : FSK调制模块
+* @FileName    : App_FSK.v
+* @Description : FSK modulation module
 * @Date        : 2019/4/23
-* @By          : Teemo（陈晓东）
+* @By          : Teemo (Chen Xiaodong)
 * @Email       : 
 * @Platform    : Quartus Prime 18.0 (64-bit) (EP4CE22E22C8)
-* @Explain     : FSK的应用程序
-*=============================================================================*/ 
-/* 设置接口 ---------------------------*/
+* @Explain     : FSK modulation application for data transmission
+*=============================================================================*/
+
+/**
+ * FSK Modulation Module
+ * Implements Frequency Shift Keying (FSK) modulation for data transmission.
+ * Modulates digital data onto carrier frequencies:
+ * - Logic '1': 500kHz carrier (2us period)  
+ * - Logic '0': 400kHz carrier (2.5us period)
+ * 
+ * Features:
+ * - 10-bit data frame transmission
+ * - FIFO data reading interface
+ * - Temperature sensor data integration
+ * - Configurable transmission timing
+ */ 
+/* Interface Setup ------------------*/
 module App_FSK
 ( 
-	input in_clr     
-	,input in_clk     
-	,input[9:0] in_ADFIFO  
-	,input in_rdFIFOempty
-    ,input[4:0] DS18B20_Input
+	input in_clr,                   // Reset signal, active low     
+	input in_clk,                   // System clock input    
+	input[9:0] in_ADFIFO,           // 10-bit data from FIFO  
+	input in_rdFIFOempty,           // FIFO empty flag
+    input[4:0] DS18B20_Input,       // 5-bit temperature sensor input
     
-	,output reg out_rdFIFOclk   
-	,output reg out_rdFIFOreq
-	,output reg fsk_data
-	,output out_FSK
-	 
+	output reg out_rdFIFOclk,       // FIFO read clock   
+	output reg out_rdFIFOreq,       // FIFO read request
+	output reg fsk_data,            // Current data bit being transmitted
+	output out_FSK                  // FSK modulated output signal
 );	 
 
-/* 寄存器配置 -------------------------*/
-reg fsk_signal;//fsk_signal
-reg [6:0]fsk_wave_cnt;
-reg [3:0]fsk_switch_cnt;
-reg [9:0]output_data;
-reg [9:0]old_output_data;
-reg [7:0]output_data_cnt;
-reg [8:0]send_data_cnt;
+/* Register Configuration -----------*/
+reg fsk_signal;                 // FSK carrier signal output
+reg [6:0]fsk_wave_cnt;          // Wave generation counter for carrier frequency
+reg [3:0]fsk_switch_cnt;        // Counter for level switching within each bit
+reg [9:0]output_data;           // Current 10-bit data frame being transmitted
+reg [9:0]old_output_data;       // Previous data frame (for repeat on FIFO empty)
+reg [7:0]output_data_cnt;       // Bit counter within current data frame
+reg [8:0]send_data_cnt;         // Frame counter for transmission sequence
 
-
-/* 连接输出 ---------------------------*/
+/* Output Connections ---------------*/
 assign out_FSK = fsk_signal;
-//assign fsk_data = output_data[0];
 /* 运行线程 ---------------------------*/
 always @(posedge in_clk or negedge in_clr)// or posedge sig_20msclk or posedge ack_20msclk
 begin   
@@ -53,23 +64,23 @@ begin
     begin
         //out_rdFIFOreq <= 1;
         
-        if(fsk_data==1)   //1发送500k,高电平
+        if(fsk_data==1)   // Send 500kHz for logic '1', high level
         begin
-            fsk_wave_cnt <= (fsk_wave_cnt + 1)%100; //25 500k 1us切换一次电平 2us一个周期
+            fsk_wave_cnt <= (fsk_wave_cnt + 1)%100; // 25 cycles for 500kHz: 1us toggle period, 2us full cycle
         end
         else
         begin
-            fsk_wave_cnt <= (fsk_wave_cnt + 1)%125; //20 400k 1.25us切换一次电平 2.5us一个周期
+            fsk_wave_cnt <= (fsk_wave_cnt + 1)%125; // 20 cycles for 400kHz: 1.25us toggle period, 2.5us full cycle
         end
         
         
-        if(fsk_wave_cnt == 0) //计数半次波形结束，需要切换电平 
+        if(fsk_wave_cnt == 0) // Half waveform count complete, need to toggle level 
         begin
             fsk_switch_cnt = fsk_switch_cnt + 1;
             fsk_signal = ~fsk_signal;
            
-            if((fsk_data==0 && fsk_switch_cnt==8) || (fsk_data==1 && fsk_switch_cnt==10)) //一个位的数据发送结束，需要切换下一位数据
-            begin                                                                         //10us 4/5次完整周期 100k
+            if((fsk_data==0 && fsk_switch_cnt==8) || (fsk_data==1 && fsk_switch_cnt==10)) // One bit transmission complete, switch to next bit
+            begin                                                                         // 10us: 4/5 complete cycles at 100kHz
                 fsk_switch_cnt = 0;
                 output_data_cnt <= (output_data_cnt + 1)%10;
                 //fsk_data = 1;
@@ -77,7 +88,7 @@ begin
                 fsk_data <= output_data[0];
                 output_data <= (output_data>>1);
                 
-                if(output_data_cnt == 0) //一串数据发送结束,100us    10bit 10k 100us 0.1ms*160=16ms
+                if(output_data_cnt == 0) // One data string transmission complete: 100us (10bit @ 10kHz = 100us, 0.1ms*160=16ms)
                 begin
                     send_data_cnt <= (send_data_cnt+1)%100;   //100 10ms/cycle
                     
